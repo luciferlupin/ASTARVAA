@@ -16,54 +16,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Ambient Audio Toggle -->
-  <div class="sound-control-wrapper" id="soundControlWrapper">
-    <button id="soundToggle" class="sound-toggle" aria-label="Toggle Atmosphere Sound" title="Sound of Dawn">
-      <svg class="sound-icon sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-        <line x1="23" y1="9" x2="17" y2="15"/>
-        <line x1="17" y1="9" x2="23" y2="15"/>
-      </svg>
-      <svg class="sound-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-      </svg>
-      <span class="sound-label">ATMOSPHERE</span>
-    </button>
-  </div>
 
-  <!-- Subtle Paper Grain Overlay -->
-  <div class="grain-overlay" aria-hidden="true"></div>
-
-  <!-- Interactive Golden Dust Particles -->
-  <canvas id="particlesCanvas" class="particles-canvas" aria-hidden="true"></canvas>
-
-  <!-- Main Hero Viewport -->
-  <main class="hero-viewport" id="heroViewport">
-    
-    <!-- Photo Stage with responsive aspect ratio lock -->
-    <div class="photo-stage" id="photoStage">
-      <img 
-        src="assets/astarvaa-hero.jpg" 
-        alt="ASTARVAA - Indian Ideas, Timeless Stories" 
-        class="astarvaa-photo"
-        id="astarvaaPhoto"
-        fetchpriority="high"
-      >
-      
-      <!-- Coming Soon Overlay directly on the photo -->
-      <div class="coming-soon-container" id="comingSoonContainer">
-        <div class="coming-soon-badge">
-          <span class="badge-line"></span>
-          <h1 class="coming-soon-heading">COMING SOON</h1>
-          <span class="badge-line"></span>
-        </div>
-      </div>
+  <!-- Full Hero Section -->
+  <main class="hero-section">
+    <div class="coming-soon-wrapper">
+      <h1 class="coming-soon-title">COMING SOON</h1>
     </div>
-
   </main>
 
-  <script src="script.js"></script>
 </body>
 </html>

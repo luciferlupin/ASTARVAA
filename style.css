@@ -1,23 +1,11 @@
 /* ==========================================================================
-   ASTARVAA — Indian Ideas, Timeless Stories
-   Pure Photo Hero with Coming Soon Announcement
+   ASTARVAA — Hero Section
    ========================================================================== */
 
-:root {
-  --bg-canvas: #EDE2D2;
-  --bg-canvas-warm: #F2E8DC;
-  --terracotta-rich: #8F3117;
-  --terracotta-deep: #742510;
-  --gold-warm: #D48E3E;
-  --gold-bright: #FFF2D6;
-  --font-marcellus: 'Marcellus', 'Cinzel', Georgia, serif;
-  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
 *, *::before, *::after {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -26,214 +14,71 @@ html, body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
-  background-color: var(--bg-canvas);
-  font-family: var(--font-marcellus);
+  background-color: #EDE2D2;
+  font-family: 'Marcellus', 'Cinzel', Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  user-select: none;
 }
 
-/* Subtle Paper Texture Overlay */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 40;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  mix-blend-mode: multiply;
-}
-
-/* Particles Canvas */
-.particles-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 15;
-}
-
-/* Sound Toggle */
-.sound-control-wrapper {
-  position: fixed;
-  top: 24px;
-  right: 28px;
-  z-index: 50;
-}
-
-.sound-toggle {
-  background: rgba(237, 226, 210, 0.75);
-  border: 1px solid rgba(166, 63, 32, 0.25);
-  border-radius: 40px;
-  padding: 7px 14px 7px 10px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  cursor: pointer;
-  color: #6E4935;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all 0.3s var(--ease-cinematic);
-}
-
-.sound-toggle:hover {
-  background: rgba(244, 234, 224, 0.95);
-  border-color: rgba(166, 63, 32, 0.55);
-  color: var(--terracotta-rich);
-  transform: translateY(-1px);
-}
-
-.sound-icon {
-  width: 15px;
-  height: 15px;
-}
-
-.sound-toggle .sound-on { display: none; }
-.sound-toggle .sound-off { display: block; }
-
-.sound-toggle.active .sound-on {
-  display: block;
-  stroke: var(--terracotta-rich);
-}
-.sound-toggle.active .sound-off { display: none; }
-
-.sound-label {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-}
-
-/* --------------------------------------------------------------------------
-   Hero Viewport & Photo Stage
-   -------------------------------------------------------------------------- */
-.hero-viewport {
+/* Full Hero Section with Photo Cover */
+.hero-section {
   position: relative;
   width: 100%;
   height: 100vh;
   height: 100dvh;
+  background-image: url('assets/astarvaa-hero.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background: radial-gradient(circle at 50% 45%, #F4EBE0 0%, #EDE1D0 55%, #E5D6C2 100%);
-  padding: 0;
 }
 
-.photo-stage {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.25s ease-out;
-  will-change: transform;
-}
-
-/* The Authentic Photo */
-.astarvaa-photo {
-  max-width: 100%;
-  max-height: 100vh;
-  max-height: 100dvh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  filter: contrast(1.02);
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-/* --------------------------------------------------------------------------
-   "COMING SOON" Overlay directly positioned on the Photo
-   -------------------------------------------------------------------------- */
-.coming-soon-container {
+/* Coming Soon Label placed beneath ASTARVAA logo */
+.coming-soon-wrapper {
   position: absolute;
-  top: 44.8%;
+  top: 45.8%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 25;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
   pointer-events: none;
-  opacity: 0;
-  animation: revealComingSoon 1.8s var(--ease-cinematic) 0.3s forwards;
+  width: auto;
 }
 
-.coming-soon-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(10px, 1.8vw, 24px);
-  white-space: nowrap;
-}
-
-.badge-line {
-  display: inline-block;
-  width: clamp(18px, 4.5vw, 54px);
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(166, 63, 32, 0.45), transparent);
-}
-
-.coming-soon-heading {
-  font-family: var(--font-marcellus);
-  font-size: clamp(9px, 1.4vw, 16px);
+.coming-soon-title {
+  font-family: 'Marcellus', 'Cinzel', Georgia, serif;
+  font-size: clamp(11px, 1.55vw, 22px);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: clamp(0.28em, 0.45vw, 0.45em);
-  margin: 0;
-  padding: 0;
+  letter-spacing: clamp(0.28em, 0.45vw, 0.48em);
+  color: #892F16;
+  white-space: nowrap;
   line-height: 1;
-  background: linear-gradient(135deg, #7A2711 0%, #A63F20 40%, #CF7A32 60%, #8E3017 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 1px 1px rgba(255, 248, 238, 0.8);
-  animation: shimmerSheen 7s ease-in-out infinite;
-}
-
-@keyframes shimmerSheen {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  text-shadow: 0 1px 2px rgba(255, 248, 238, 0.9);
+  opacity: 0;
+  animation: revealComingSoon 1.4s ease-out 0.2s forwards;
 }
 
 @keyframes revealComingSoon {
   0% {
     opacity: 0;
-    transform: translate(-50%, -42%) scale(0.96);
+    transform: translateY(6px);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateY(0);
   }
 }
 
-/* --------------------------------------------------------------------------
-   Mobile Adjustments
-   -------------------------------------------------------------------------- */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
-  .sound-control-wrapper {
-    top: 16px;
-    right: 16px;
+  .coming-soon-wrapper {
+    top: 45.8%;
   }
-  
-  .coming-soon-heading {
-    letter-spacing: 0.25em;
-  }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .coming-soon-title {
+    font-size: clamp(11px, 3.2vw, 15px);
+    letter-spacing: 0.28em;
   }
 }
