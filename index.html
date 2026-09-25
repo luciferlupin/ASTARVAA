@@ -6,20 +6,19 @@
   <title>ASTARVAA | Coming Soon</title>
   <meta name="description" content="ASTARVAA — Indian Ideas, Timeless Stories. Coming Soon.">
   
-  <!-- Favicon / Meta -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Marcellus&family=Noto+Serif+Devanagari:wght@300;400;500;600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Ambient Audio Indicator / Toggle -->
+  <!-- Ambient Audio Toggle -->
   <div class="sound-control-wrapper" id="soundControlWrapper">
-    <button id="soundToggle" class="sound-toggle" aria-label="Toggle Ambient Sound" title="Sound of Dawn">
+    <button id="soundToggle" class="sound-toggle" aria-label="Toggle Atmosphere Sound" title="Sound of Dawn">
       <svg class="sound-icon sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M11 5L6 9H2v6h4l5 4V5z"/>
         <line x1="23" y1="9" x2="17" y2="15"/>
@@ -34,145 +33,34 @@
     </button>
   </div>
 
-  <!-- Noise & Paper Grain Texture -->
+  <!-- Subtle Paper Grain Overlay -->
   <div class="grain-overlay" aria-hidden="true"></div>
 
-  <!-- Interactive Particles Canvas -->
+  <!-- Interactive Golden Dust Particles -->
   <canvas id="particlesCanvas" class="particles-canvas" aria-hidden="true"></canvas>
 
   <!-- Main Hero Viewport -->
   <main class="hero-viewport" id="heroViewport">
     
-    <!-- Parallax Artwork Layer -->
-    <div class="artwork-container" id="artworkContainer">
-      <div class="sun-glow" id="sunGlow" aria-hidden="true"></div>
-      <img src="assets/astarvaa-hero.jpg" alt="Astarvaa Landscape - Indian Ideas, Timeless Stories" class="hero-art-img" id="heroArtImg" fetchpriority="high">
-    </div>
-
-    <!-- Heritage Left Pillar -->
-    <aside class="heritage-pillar pillar-left" aria-hidden="true">
-      <div class="pillar-line top-line"></div>
-      <div class="pillar-star">✦</div>
-      <div class="sanskrit-text">
-        <span>अतीतम्</span>
-        <span>वर्तमानम्</span>
-        <span>भविष्यतम्</span>
-      </div>
-      <div class="pillar-line bottom-line"></div>
-    </aside>
-
-    <!-- Heritage Right Pillar -->
-    <aside class="heritage-pillar pillar-right" aria-hidden="true">
-      <div class="pillar-line top-line"></div>
-      <div class="pillar-star">✦</div>
-      <div class="english-tagline">
-        <span>INDIAN</span>
-        <span>IDEAS</span>
-        <span>TIMELESS</span>
-        <span>STORIES</span>
-      </div>
-      <div class="pillar-subline"></div>
-      <div class="pillar-line bottom-line"></div>
-    </aside>
-
-    <!-- Centerpiece Brand & Coming Soon Overlay -->
-    <section class="brand-hero-content" id="brandHeroContent">
+    <!-- Photo Stage with responsive aspect ratio lock -->
+    <div class="photo-stage" id="photoStage">
+      <img 
+        src="assets/astarvaa-hero.jpg" 
+        alt="ASTARVAA - Indian Ideas, Timeless Stories" 
+        class="astarvaa-photo"
+        id="astarvaaPhoto"
+        fetchpriority="high"
+      >
       
-      <!-- Brand Name ASTARVAA with Archer Bow & Arrow Emblem -->
-      <div class="brand-crest" id="brandCrest">
-        
-        <!-- Vector Emblem & Wordmark Container -->
-        <div class="brand-wordmark-wrapper">
-          <svg class="astarvaa-logo-svg" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ASTARVAA">
-            <defs>
-              <!-- Metallic Terracotta to Warm Gold Foil Gradient -->
-              <linearGradient id="terracottaGoldGrad" x1="0%" y1="0%" x2="100%" y2="80%">
-                <stop offset="0%" stop-color="#9C381E"/>
-                <stop offset="25%" stop-color="#BF4D28"/>
-                <stop offset="50%" stop-color="#D97A38"/>
-                <stop offset="75%" stop-color="#C75C2B"/>
-                <stop offset="100%" stop-color="#8B2F16"/>
-              </linearGradient>
-
-              <!-- Gilded Bow Highlight Gradient -->
-              <linearGradient id="bowGoldGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#8C5024"/>
-                <stop offset="30%" stop-color="#D99B4B"/>
-                <stop offset="60%" stop-color="#F2D08E"/>
-                <stop offset="85%" stop-color="#C88236"/>
-                <stop offset="100%" stop-color="#7C4019"/>
-              </linearGradient>
-
-              <!-- Arrow Gold Gradient -->
-              <linearGradient id="arrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#7E3E18"/>
-                <stop offset="50%" stop-color="#E5B25D"/>
-                <stop offset="100%" stop-color="#F7E2B0"/>
-              </linearGradient>
-
-              <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="3" result="blur"/>
-                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-              </filter>
-            </defs>
-
-            <!-- ARCHER BOW & ARROW EMBLEM -->
-            <g class="bow-arrow-emblem" id="bowArrowGroup">
-              <!-- Bow Grip Notch on Left -->
-              <path d="M 320 62 L 348 62 C 352 62 352 69 348 69 L 320 69 Z" fill="url(#bowGoldGrad)" stroke="#6C3012" stroke-width="0.8"/>
-              
-              <!-- Bow Outer Curved Arc -->
-              <path d="M 322 65 C 415 65 478 95 492 165 C 490 165 487 163 485 160 C 472 100 410 74 322 71 Z" fill="url(#bowGoldGrad)" filter="drop-shadow(0 1px 2px rgba(80, 25, 10, 0.25))"/>
-              
-              <!-- Bow String (delicate tension line) -->
-              <line x1="322" y1="65" x2="491" y2="165" stroke="url(#bowGoldGrad)" stroke-width="0.75" stroke-opacity="0.45" stroke-dasharray="2 1"/>
-
-              <!-- Diagonal Arrow Shaft -->
-              <line x1="348" y1="172" x2="408" y2="52" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
-              <line x1="348" y1="172" x2="408" y2="52" stroke="#FFF0D0" stroke-width="0.8" stroke-linecap="round" opacity="0.6"/>
-
-              <!-- Arrow Bottom Counterweight Ring/Sphere -->
-              <circle cx="347" cy="173" r="5" fill="url(#arrowGrad)" stroke="#5E260F" stroke-width="1"/>
-              <circle cx="346" cy="171" r="1.5" fill="#FFE8C0"/>
-
-              <!-- Triangular Arrowhead Tip -->
-              <path d="M 408 52 L 401 32 L 420 45 Z" fill="url(#arrowGrad)" stroke="#5E260F" stroke-width="0.8"/>
-              <polygon points="408,52 403,34 417,46" fill="#FFF2DC" opacity="0.5"/>
-            </g>
-
-            <!-- BRAND WORDMARK "ASTARVAA" -->
-            <text x="300" y="215" text-anchor="middle" class="logo-letters" fill="url(#terracottaGoldGrad)">ASTARVAA</text>
-          </svg>
+      <!-- Coming Soon Overlay directly on the photo -->
+      <div class="coming-soon-container" id="comingSoonContainer">
+        <div class="coming-soon-badge">
+          <span class="badge-line"></span>
+          <h1 class="coming-soon-heading">COMING SOON</h1>
+          <span class="badge-line"></span>
         </div>
-
       </div>
-
-      <!-- Ornamental Luxury Divider -->
-      <div class="ornament-divider" aria-hidden="true">
-        <span class="divider-line"></span>
-        <span class="divider-diamond">✦</span>
-        <span class="divider-line"></span>
-      </div>
-
-      <!-- Primary "COMING SOON" Announcement -->
-      <div class="coming-soon-wrapper">
-        <h1 class="coming-soon-text">
-          <span class="char-span">C</span>
-          <span class="char-span">O</span>
-          <span class="char-span">M</span>
-          <span class="char-span">I</span>
-          <span class="char-span">N</span>
-          <span class="char-span">G</span>
-          <span class="char-space"></span>
-          <span class="char-span">S</span>
-          <span class="char-span">O</span>
-          <span class="char-span">O</span>
-          <span class="char-span">N</span>
-        </h1>
-        <div class="shimmer-bar"></div>
-      </div>
-
-    </section>
+    </div>
 
   </main>
 

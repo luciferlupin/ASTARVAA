@@ -1,41 +1,19 @@
 /* ==========================================================================
    ASTARVAA — Indian Ideas, Timeless Stories
-   Hero Section Design System & Stylesheet
+   Pure Photo Hero with Coming Soon Announcement
    ========================================================================== */
 
 :root {
-  /* Curated Warm Mineral & Terracotta Palette */
   --bg-canvas: #EDE2D2;
-  --bg-canvas-light: #F4EAE0;
-  --bg-canvas-dark: #E4D6C4;
-  --terracotta-deep: #8E3017;
-  --terracotta-rich: #A63F20;
-  --terracotta-vivid: #BF4F27;
-  --terracotta-sun: #C65625;
-  --gold-burnished: #9C6730;
+  --bg-canvas-warm: #F2E8DC;
+  --terracotta-rich: #8F3117;
+  --terracotta-deep: #742510;
   --gold-warm: #D48E3E;
-  --gold-shimmer: #F5D390;
   --gold-bright: #FFF2D6;
-  --sand-stone: #4A3326;
-  --sand-stone-soft: #7A5B47;
-  --ink-charcoal: #2D201A;
-
-  /* Typography */
-  --font-serif-display: 'Cinzel', 'Playfair Display', Georgia, serif;
-  --font-serif-royal: 'Cinzel Decorative', 'Cinzel', serif;
-  --font-serif-elegant: 'Cormorant Garamond', Garamond, serif;
-  --font-serif-marcellus: 'Marcellus', serif;
-  --font-devanagari: 'Noto Serif Devanagari', serif;
-  --font-sans-clean: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-
-  /* Transitions */
+  --font-marcellus: 'Marcellus', 'Cinzel', Georgia, serif;
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* --------------------------------------------------------------------------
-   Reset & Document Base
-   -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -49,17 +27,13 @@ html, body {
   min-height: 100dvh;
   overflow: hidden;
   background-color: var(--bg-canvas);
-  color: var(--sand-stone);
-  font-family: var(--font-sans-clean);
+  font-family: var(--font-marcellus);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
-  cursor: default;
 }
 
-/* --------------------------------------------------------------------------
-   Paper Grain & Atmosphere Overlays
-   -------------------------------------------------------------------------- */
+/* Subtle Paper Texture Overlay */
 .grain-overlay {
   position: fixed;
   inset: 0;
@@ -67,12 +41,13 @@ html, body {
   height: 100%;
   pointer-events: none;
   z-index: 40;
-  opacity: 0.055;
+  opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   mix-blend-mode: multiply;
 }
 
+/* Particles Canvas */
 .particles-canvas {
   position: fixed;
   inset: 0;
@@ -82,75 +57,59 @@ html, body {
   z-index: 15;
 }
 
-/* --------------------------------------------------------------------------
-   Sound Toggle Control
-   -------------------------------------------------------------------------- */
+/* Sound Toggle */
 .sound-control-wrapper {
   position: fixed;
-  top: 28px;
-  right: 32px;
+  top: 24px;
+  right: 28px;
   z-index: 50;
 }
 
 .sound-toggle {
-  background: rgba(237, 226, 210, 0.7);
+  background: rgba(237, 226, 210, 0.75);
   border: 1px solid rgba(166, 63, 32, 0.25);
   border-radius: 40px;
-  padding: 8px 16px 8px 12px;
+  padding: 7px 14px 7px 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   cursor: pointer;
-  color: var(--sand-stone-soft);
+  color: #6E4935;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: all 0.35s var(--ease-cinematic);
-  box-shadow: 0 4px 15px rgba(100, 50, 20, 0.05);
+  transition: all 0.3s var(--ease-cinematic);
 }
 
 .sound-toggle:hover {
   background: rgba(244, 234, 224, 0.95);
-  border-color: rgba(166, 63, 32, 0.6);
+  border-color: rgba(166, 63, 32, 0.55);
   color: var(--terracotta-rich);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(166, 63, 32, 0.12);
 }
 
 .sound-icon {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
-.sound-toggle .sound-on {
-  display: none;
-}
-.sound-toggle .sound-off {
-  display: block;
-}
+.sound-toggle .sound-on { display: none; }
+.sound-toggle .sound-off { display: block; }
 
 .sound-toggle.active .sound-on {
   display: block;
   stroke: var(--terracotta-rich);
-  animation: pulseIcon 1.6s infinite ease-in-out;
 }
-.sound-toggle.active .sound-off {
-  display: none;
-}
+.sound-toggle.active .sound-off { display: none; }
 
 .sound-label {
-  font-family: var(--font-sans-clean);
-  font-size: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 9.5px;
   font-weight: 500;
-  letter-spacing: 0.18em;
-}
-
-@keyframes pulseIcon {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
+  letter-spacing: 0.16em;
 }
 
 /* --------------------------------------------------------------------------
-   Hero Viewport & Layout
+   Hero Viewport & Photo Stage
    -------------------------------------------------------------------------- */
 .hero-viewport {
   position: relative;
@@ -158,476 +117,119 @@ html, body {
   height: 100vh;
   height: 100dvh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: clamp(6vh, 9vh, 12vh);
+  justify-content: center;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 25%, #F4EBE0 0%, #EDE1D0 50%, #E5D6C2 100%);
+  background: radial-gradient(circle at 50% 45%, #F4EBE0 0%, #EDE1D0 55%, #E5D6C2 100%);
+  padding: 0;
 }
 
-/* --------------------------------------------------------------------------
-   Artwork & Landscape Layer
-   -------------------------------------------------------------------------- */
-.artwork-container {
-  position: absolute;
-  inset: 0;
+.photo-stage {
+  position: relative;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 5;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   transition: transform 0.25s ease-out;
   will-change: transform;
 }
 
-.hero-art-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-  opacity: 0.98;
-  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 68%, rgba(0,0,0,0.4) 88%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 68%, rgba(0,0,0,0.4) 88%, rgba(0,0,0,0) 100%);
-  filter: contrast(1.02) saturate(1.03);
-}
-
-/* Soft solar aura pulsing behind mountains */
-.sun-glow {
-  position: absolute;
-  left: 38%;
-  bottom: 25%;
-  width: clamp(240px, 35vw, 480px);
-  height: clamp(240px, 35vw, 480px);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 85, 32, 0.45) 0%, rgba(229, 122, 56, 0.25) 40%, rgba(237, 226, 210, 0) 75%);
-  filter: blur(40px);
-  opacity: 0.7;
-  animation: dawnBreathe 7s ease-in-out infinite alternate;
-  pointer-events: none;
-  transform: translate(-50%, 50%);
-}
-
-@keyframes dawnBreathe {
-  0% { transform: translate(-50%, 50%) scale(0.92); opacity: 0.55; }
-  100% { transform: translate(-50%, 50%) scale(1.12); opacity: 0.85; }
+/* The Authentic Photo */
+.astarvaa-photo {
+  max-width: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: contrast(1.02);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* --------------------------------------------------------------------------
-   Heritage Side Pillars (Sanskrit & English)
+   "COMING SOON" Overlay directly positioned on the Photo
    -------------------------------------------------------------------------- */
-.heritage-pillar {
+.coming-soon-container {
   position: absolute;
-  top: 14%;
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--sand-stone-soft);
-  opacity: 0;
-  animation: fadeInPillar 1.8s var(--ease-cinematic) 0.6s forwards;
-  pointer-events: none;
-}
-
-.pillar-left {
-  left: clamp(24px, 6vw, 90px);
-}
-
-.pillar-right {
-  right: clamp(24px, 6vw, 90px);
-}
-
-.pillar-line {
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(166, 63, 32, 0.4), rgba(166, 63, 32, 0.15));
-}
-
-.top-line {
-  height: 48px;
-}
-
-.bottom-line {
-  height: clamp(60px, 12vh, 140px);
-  background: linear-gradient(to bottom, rgba(166, 63, 32, 0.35), transparent);
-}
-
-.pillar-star {
-  font-size: 13px;
-  line-height: 1;
-  color: var(--terracotta-vivid);
-  margin: 6px 0 16px 0;
-  opacity: 0.85;
-  text-shadow: 0 0 8px rgba(191, 79, 39, 0.4);
-}
-
-.sanskrit-text {
-  font-family: var(--font-devanagari);
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 0.32em;
-  font-size: clamp(12px, 1.1vw, 15px);
-  font-weight: 400;
-  color: #6E4935;
-  display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.sanskrit-text span {
-  display: inline-block;
-  opacity: 0.82;
-  transition: opacity 0.3s;
-}
-
-.english-tagline {
-  font-family: var(--font-serif-marcellus);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  letter-spacing: 0.28em;
-  font-size: clamp(9px, 0.85vw, 12px);
-  font-weight: 500;
-  line-height: 1.85;
-  color: #6E4935;
-  margin-bottom: 12px;
-}
-
-.english-tagline span {
-  opacity: 0.82;
-}
-
-.pillar-subline {
-  width: 22px;
-  height: 1px;
-  background-color: rgba(166, 63, 32, 0.45);
-  margin-bottom: 14px;
-}
-
-@keyframes fadeInPillar {
-  0% { opacity: 0; transform: translateY(12px); }
-  100% { opacity: 0.9; transform: translateY(0); }
-}
-
-/* --------------------------------------------------------------------------
-   Centerpiece Brand & Coming Soon Content
-   -------------------------------------------------------------------------- */
-.brand-hero-content {
-  position: relative;
+  top: 44.8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 25;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  width: 90%;
-  max-width: 860px;
-  margin: 0 auto;
-  transition: transform 0.2s ease-out;
-  will-change: transform;
-}
-
-/* Brand Crest Container */
-.brand-crest {
-  width: 100%;
-  max-width: 580px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  pointer-events: none;
   opacity: 0;
-  transform: translateY(20px) scale(0.97);
-  animation: revealCrest 1.6s var(--ease-cinematic) 0.2s forwards;
+  animation: revealComingSoon 1.8s var(--ease-cinematic) 0.3s forwards;
 }
 
-.brand-wordmark-wrapper {
-  width: 100%;
-  position: relative;
-}
-
-.astarvaa-logo-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
-  filter: drop-shadow(0 6px 16px rgba(110, 40, 15, 0.12));
-}
-
-.logo-letters {
-  font-family: 'Cinzel', serif;
-  font-weight: 800;
-  font-size: 64px;
-  letter-spacing: 0.16em;
-  stroke: rgba(110, 35, 12, 0.6);
-  stroke-width: 0.6px;
-  paint-order: stroke fill;
-}
-
-/* Bow and Arrow Emblem Animation */
-.bow-arrow-emblem {
-  transform-origin: 400px 100px;
-  animation: bowGleam 4s ease-in-out infinite alternate;
-}
-
-@keyframes bowGleam {
-  0% {
-    filter: drop-shadow(0 2px 4px rgba(140, 80, 36, 0.2));
-  }
-  100% {
-    filter: drop-shadow(0 4px 12px rgba(245, 211, 144, 0.55));
-  }
-}
-
-@keyframes revealCrest {
-  0% {
-    opacity: 0;
-    transform: translateY(22px) scale(0.96);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Ornamental Luxury Divider
-   -------------------------------------------------------------------------- */
-.ornament-divider {
+.coming-soon-badge {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 320px;
-  margin: 18px 0 22px 0;
-  opacity: 0;
-  animation: fadeInDivider 1.4s var(--ease-cinematic) 0.7s forwards;
-}
-
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(166, 63, 32, 0.5), transparent);
-}
-
-.divider-diamond {
-  font-size: 11px;
-  line-height: 1;
-  color: var(--gold-warm);
-  text-shadow: 0 0 10px rgba(212, 142, 62, 0.7);
-  animation: starPulse 3.5s ease-in-out infinite alternate;
-}
-
-@keyframes starPulse {
-  0% { transform: scale(0.9); opacity: 0.75; }
-  100% { transform: scale(1.25); opacity: 1; }
-}
-
-@keyframes fadeInDivider {
-  0% { opacity: 0; transform: scaleX(0.7); }
-  100% { opacity: 1; transform: scaleX(1); }
-}
-
-/* --------------------------------------------------------------------------
-   Primary "COMING SOON" Section
-   -------------------------------------------------------------------------- */
-.coming-soon-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: revealComingSoon 1.6s var(--ease-cinematic) 0.9s forwards;
-}
-
-.coming-soon-text {
-  font-family: var(--font-serif-marcellus);
-  font-size: clamp(14px, 2.2vw, 24px);
-  font-weight: 400;
-  text-transform: uppercase;
-  color: #72341D;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: clamp(10px, 1.8vw, 24px);
   white-space: nowrap;
-  letter-spacing: clamp(0.28em, 0.5vw, 0.48em);
-  background: linear-gradient(135deg, #812E15 0%, #B84B24 35%, #D4893A 55%, #A73E1D 80%, #68230D 100%);
+}
+
+.badge-line {
+  display: inline-block;
+  width: clamp(18px, 4.5vw, 54px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(166, 63, 32, 0.45), transparent);
+}
+
+.coming-soon-heading {
+  font-family: var(--font-marcellus);
+  font-size: clamp(9px, 1.4vw, 16px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: clamp(0.28em, 0.45vw, 0.45em);
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  background: linear-gradient(135deg, #7A2711 0%, #A63F20 40%, #CF7A32 60%, #8E3017 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: metallicSheen 6s ease-in-out infinite;
-  text-shadow: 0 1px 1px rgba(255, 240, 220, 0.6);
-  padding: 4px 0;
+  text-shadow: 0 1px 1px rgba(255, 248, 238, 0.8);
+  animation: shimmerSheen 7s ease-in-out infinite;
 }
 
-.char-span {
-  display: inline-block;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s;
-}
-
-.char-span:hover {
-  transform: translateY(-3px) scale(1.1);
-}
-
-.char-space {
-  display: inline-block;
-  width: clamp(12px, 2vw, 22px);
-}
-
-/* Delicate Golden Shimmer Bar underneath COMING SOON */
-.shimmer-bar {
-  width: clamp(80px, 16vw, 140px);
-  height: 1.5px;
-  margin-top: 14px;
-  background: linear-gradient(90deg, transparent 0%, rgba(191, 79, 39, 0.3) 20%, rgba(245, 211, 144, 0.9) 50%, rgba(191, 79, 39, 0.3) 80%, transparent 100%);
-  background-size: 200% 100%;
-  animation: sweepLight 4s linear infinite;
-  border-radius: 2px;
-}
-
-@keyframes metallicSheen {
+@keyframes shimmerSheen {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-@keyframes sweepLight {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
 @keyframes revealComingSoon {
   0% {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translate(-50%, -42%) scale(0.96);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
 /* --------------------------------------------------------------------------
-   Responsive Breakpoints & Mobile Optimization
+   Mobile Adjustments
    -------------------------------------------------------------------------- */
-
-/* Large Displays (4K & Ultra-wide) */
-@media (min-width: 1800px) {
-  .brand-crest {
-    max-width: 680px;
-  }
-  .ornament-divider {
-    max-width: 380px;
-    margin: 24px 0 28px 0;
-  }
-}
-
-/* Standard Laptops & Tablets */
-@media (max-width: 1024px) {
-  .pillar-left {
-    left: 28px;
-  }
-  .pillar-right {
-    right: 28px;
-  }
-}
-
-/* Mobile Screens (Phones portrait) */
 @media (max-width: 768px) {
-  .hero-viewport {
-    padding-top: 14vh;
-  }
-
   .sound-control-wrapper {
-    top: 18px;
-    right: 18px;
+    top: 16px;
+    right: 16px;
   }
-
-  .sound-toggle {
-    padding: 6px 12px 6px 10px;
-  }
-
-  .sound-label {
-    font-size: 9px;
-  }
-
-  /* Compact the side pillars on small screens to prevent overlap */
-  .heritage-pillar {
-    top: auto;
-    bottom: 22px;
-  }
-
-  .pillar-left {
-    left: 18px;
-  }
-
-  .pillar-right {
-    right: 18px;
-  }
-
-  .top-line, .bottom-line {
-    display: none;
-  }
-
-  .pillar-star {
-    margin: 0 0 6px 0;
-    font-size: 11px;
-  }
-
-  .sanskrit-text {
-    writing-mode: horizontal-tb;
-    text-orientation: mixed;
-    gap: 8px;
-    font-size: 10px;
-    margin-bottom: 0;
-    letter-spacing: 0.1em;
-  }
-
-  .english-tagline {
-    font-size: 8px;
-    line-height: 1.4;
-    letter-spacing: 0.15em;
-    margin-bottom: 0;
-  }
-
-  .pillar-subline {
-    display: none;
-  }
-
-  .brand-crest {
-    max-width: 90vw;
-  }
-
-  .logo-letters {
-    font-size: 60px;
-  }
-
-  .ornament-divider {
-    max-width: 220px;
-    margin: 14px 0 16px 0;
-  }
-
-  .shimmer-bar {
-    margin-top: 10px;
+  
+  .coming-soon-heading {
+    letter-spacing: 0.25em;
   }
 }
 
-@media (max-width: 420px) {
-  .hero-viewport {
-    padding-top: 16vh;
-  }
-
-  .brand-crest {
-    max-width: 92vw;
-  }
-
-  .coming-soon-text {
-    letter-spacing: 0.22em;
-  }
-}
-
-/* High Contrast & Reduced Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
