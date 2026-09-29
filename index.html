@@ -11,77 +11,186 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Marcellus&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Marcellus&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Main Hero Viewport -->
-  <main class="hero-section" id="heroSection">
-
-    <!-- Background Video Container -->
-    <div class="video-container">
-      <video
-        id="heroVideo"
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-      >
-        <source src="assets/astarvaa-hero.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-      </video>
-      <div class="video-overlay" aria-hidden="true"></div>
-      <div class="video-vignette" aria-hidden="true"></div>
+  <!-- Floating Global Brand & Chapter Navigation Bar -->
+  <header class="global-nav">
+    <div class="nav-brand">
+      <a href="#sectionCaliber" class="brand-link" id="brandHomeLink">ASTARVAA</a>
+      <span class="nav-subtitle">INDIAN IDEAS &bull; TIMELESS STORIES</span>
     </div>
 
-    <!-- Top Brand Header -->
-    <header class="hero-header">
-      <div class="brand-crest">
-        <h2 class="brand-name">ASTARVAA</h2>
-        <span class="brand-tagline">INDIAN IDEAS &bull; TIMELESS STORIES</span>
-      </div>
-    </header>
-
-    <!-- Bottom Stage: Coming Soon -->
-    <footer class="hero-footer">
-      <div class="coming-soon-wrapper">
-        <div class="status-indicator">
-          <span class="status-dot"></span>
-          <span class="status-label">HORLOGERIE D'ART</span>
-        </div>
-        <h1 class="coming-soon-title">COMING SOON</h1>
-        <div class="ornament-line">
-          <span class="line-bar"></span>
-          <span class="diamond">✦</span>
-          <span class="line-bar"></span>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Audio Control Toggle -->
-    <div class="sound-control-wrapper">
-      <button id="soundToggle" class="sound-toggle" aria-label="Toggle Sound" title="Sound Experience">
-        <span class="sound-icon-wrapper">
-          <svg class="sound-icon sound-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-            <line x1="23" y1="9" x2="17" y2="15"/>
-            <line x1="17" y1="9" x2="23" y2="15"/>
-          </svg>
-          <svg class="sound-icon sound-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-          </svg>
+    <!-- Chapter Progress Switcher (01 / 02) -->
+    <nav class="chapter-nav" aria-label="Story Chapters">
+      <button class="chapter-btn active" data-target="sectionCaliber" id="btnChapter1" aria-label="Chapter 01: The Caliber">
+        <span class="chapter-num">01</span>
+        <span class="chapter-title">THE CALIBER</span>
+        <span class="chapter-progress-track">
+          <span class="chapter-progress-fill" id="fillChapter1"></span>
         </span>
-        <span class="sound-text" id="soundText">SOUND OFF</span>
       </button>
-    </div>
+
+      <div class="chapter-separator" aria-hidden="true">/</div>
+
+      <button class="chapter-btn" data-target="sectionSanctum" id="btnChapter2" aria-label="Chapter 02: Sacred Sanctum">
+        <span class="chapter-num">02</span>
+        <span class="chapter-title">SACRED SANCTUM</span>
+        <span class="chapter-progress-track">
+          <span class="chapter-progress-fill" id="fillChapter2"></span>
+        </span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Universal Sound Control -->
+  <div class="sound-control-wrapper">
+    <button id="soundToggle" class="sound-toggle" aria-label="Toggle Sound Experience" title="Atmospheric Audio">
+      <span class="sound-icon-wrapper">
+        <svg class="sound-icon sound-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <line x1="23" y1="9" x2="17" y2="15"/>
+          <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <svg class="sound-icon sound-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+      </span>
+      <span class="sound-text" id="soundText">SOUND OFF</span>
+    </button>
+  </div>
+
+  <!-- Main Scrollable Story Container -->
+  <main class="story-container" id="storyContainer">
+
+    <!-- ======================================================================
+         SECTION 1: THE CALIBER (Hero - Exploded Mechanical Genesis)
+         ====================================================================== -->
+    <section class="story-section" id="sectionCaliber" data-chapter="1">
+      <div class="video-container">
+        <video
+          id="videoCaliber"
+          class="hero-video"
+          autoplay
+          muted
+          playsinline
+          preload="auto"
+        >
+          <source src="assets/astarvaa-hero.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="video-overlay" aria-hidden="true"></div>
+        <div class="video-vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="section-content">
+        <div class="coming-soon-wrapper">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span class="status-label">ACT I &bull; HAUTE HORLOGERIE</span>
+          </div>
+          <h1 class="coming-soon-title">COMING SOON</h1>
+          <div class="ornament-line">
+            <span class="line-bar"></span>
+            <span class="diamond">✦</span>
+            <span class="line-bar"></span>
+          </div>
+          <p class="section-tagline">THE SANKAT MOCHAN CALIBER &bull; MECHANICAL GENESIS</p>
+        </div>
+
+        <!-- Scroll down prompt -->
+        <button class="scroll-cue" id="cueToSanctum" aria-label="Explore Sacred Sanctum">
+          <span class="cue-label">NEXT: SACRED SANCTUM</span>
+          <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: SACRED SANCTUM (Temple & Timepiece Assembly)
+         ====================================================================== -->
+    <section class="story-section" id="sectionSanctum" data-chapter="2">
+      <div class="video-container">
+        <video
+          id="videoSanctum"
+          class="hero-video"
+          muted
+          playsinline
+          preload="auto"
+        >
+          <source src="assets/astarvaa-temple.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="video-overlay video-overlay-temple" aria-hidden="true"></div>
+        <div class="video-vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="section-content">
+        <!-- Return to Caliber prompt -->
+        <button class="scroll-cue scroll-cue-top" id="cueToCaliber" aria-label="Return to The Caliber">
+          <svg class="cue-arrow cue-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+          <span class="cue-label">RETURN TO CALIBER</span>
+        </button>
+
+        <!-- Sanctum Luxury Presentation Card -->
+        <div class="sanctum-card">
+          <div class="status-indicator">
+            <span class="status-dot sanctum-dot"></span>
+            <span class="status-label">ACT II &bull; SACRED SANCTUM</span>
+          </div>
+          <h2 class="sanctum-title">THE SANKAT MOCHAN</h2>
+          <div class="ornament-line">
+            <span class="line-bar"></span>
+            <span class="diamond">✦</span>
+            <span class="line-bar"></span>
+          </div>
+          <p class="sanctum-description">
+            Sculpted mother-of-pearl cameo &bull; Hand-chiseled golden summit &bull; Conceived in devotion, crafted in Switzerland
+          </p>
+
+          <div class="sanctum-actions">
+            <button class="vip-interest-btn" id="btnNotify">
+              <span class="btn-text">REGISTER FOR PRIVATE PREVIEW</span>
+              <span class="btn-glow" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sanctum-footer-note">
+          <span>ASTARVAA &bull; TIMEPIECE ARCHIVE &bull; MMXXVI</span>
+        </div>
+      </div>
+    </section>
 
   </main>
+
+  <!-- VIP Register Interest Dialog -->
+  <dialog class="vip-dialog" id="vipModal">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close dialog">&times;</button>
+      <div class="modal-badge">EXCLUSIVE ALLOCATION</div>
+      <h3 class="modal-title">THE SANKAT MOCHAN</h3>
+      <p class="modal-desc">
+        A strictly numbered haute horlogerie collection honoring timeless devotion. Register your email for private early access invitations and private atelier updates.
+      </p>
+      <form class="modal-form" id="vipForm">
+        <div class="input-wrapper">
+          <input type="email" id="vipEmail" placeholder="Enter your email address" required autocomplete="email">
+          <button type="submit" class="submit-btn" id="submitBtn">JOIN WAITLIST</button>
+        </div>
+        <p class="form-feedback" id="formFeedback"></p>
+      </form>
+    </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>
