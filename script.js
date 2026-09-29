@@ -1,6 +1,6 @@
 /**
- * ASTARVAA — Apple-Grade World Transition Engine
- * Celestial Temple Portal (1 -> 2), CAD Laser Sweep (2 -> 3), and Aperture Vortex (3 -> 1).
+ * ASTARVAA — Haute Horlogerie Engine
+ * Single & Multi-World Cinematic Playback Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const world1 = document.getElementById('world1');
   const world2 = document.getElementById('world2');
   const world3 = document.getElementById('world3');
-  const worlds = [world1, world2, world3];
+  const worlds = [world1, world2, world3].filter(Boolean);
 
   // Videos
   const videoCaliber = document.getElementById('videoCaliber');
   const videoSanctum = document.getElementById('videoSanctum');
   const videoAtelier = document.getElementById('videoAtelier');
-  const videos = [videoCaliber, videoSanctum, videoAtelier];
+  const videos = [videoCaliber, videoSanctum, videoAtelier].filter(Boolean);
 
   // FX Layers
   const fxPortal = document.getElementById('fxPortal');
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const node1 = document.getElementById('node1');
   const node2 = document.getElementById('node2');
   const node3 = document.getElementById('node3');
-  const railNodes = [node1, node2, node3];
+  const railNodes = [node1, node2, node3].filter(Boolean);
   const railThumb = document.getElementById('railThumb');
 
   // Nav & Controls
@@ -47,10 +47,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastWheelTime = 0;
   let touchStartY = 0;
 
+  // Ensure hero video loops continuously when running single hero mode
+  if (videoCaliber) {
+    videoCaliber.loop = true;
+  }
+
   // --------------------------------------------------------------------------
   // Rail Thumb Positioning
   // --------------------------------------------------------------------------
   function updateRail(targetIndex) {
+    if (railNodes.length === 0) return;
     railNodes.forEach((node, idx) => {
       if (!node) return;
       if (idx + 1 === targetIndex) {
@@ -100,11 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // World Switcher with Cinematic Transition FX
+  // World Switcher with Cinematic Transition FX (Active only when multiple worlds exist)
   // --------------------------------------------------------------------------
   function switchWorld(targetIndex, direction = 1) {
+    if (worlds.length <= 1) return;
     if (targetIndex === currentWorld || isTransitioning) return;
-    if (targetIndex < 1 || targetIndex > 3) return;
+    if (targetIndex < 1 || targetIndex > worlds.length) return;
 
     isTransitioning = true;
     const prevIndex = currentWorld;
@@ -117,19 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Trigger Custom Transition Animation
     if (prevIndex === 1 && targetIndex === 2) {
-      // World 1 -> 2: Divine Sunbeam Temple Portal
       if (fxPortal) {
         fxPortal.classList.add('animating');
         setTimeout(() => fxPortal.classList.remove('animating'), 1200);
       }
     } else if (prevIndex === 2 && targetIndex === 3) {
-      // World 2 -> 3: Architectural CAD Laser Sweep
       if (fxBlueprintScan) {
         fxBlueprintScan.classList.add('animating');
         setTimeout(() => fxBlueprintScan.classList.remove('animating'), 1200);
       }
     } else if (prevIndex === 3 && targetIndex === 1) {
-      // World 3 -> 1: Horological Aperture Vortex
       if (fxAperture) {
         fxAperture.classList.add('animating');
         setTimeout(() => fxAperture.classList.remove('animating'), 1300);
@@ -174,104 +178,110 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function nextWorld() {
-    const next = currentWorld === 3 ? 1 : currentWorld + 1;
+    if (worlds.length <= 1) return;
+    const next = currentWorld === worlds.length ? 1 : currentWorld + 1;
     switchWorld(next, 1);
   }
 
   function prevWorld() {
-    const prev = currentWorld === 1 ? 3 : currentWorld - 1;
+    if (worlds.length <= 1) return;
+    const prev = currentWorld === 1 ? worlds.length : currentWorld - 1;
     switchWorld(prev, -1);
   }
 
   // --------------------------------------------------------------------------
-  // Automatic Story Flow (Video timeupdate & ended)
+  // Automatic Story Flow (Enabled only if multiple worlds exist)
   // --------------------------------------------------------------------------
   function setupVideoFlow(video, worldIndex) {
-    if (!video) return;
+    if (!video || worlds.length <= 1) return;
 
     video.addEventListener('timeupdate', () => {
-      if (video.duration) {
-        // When video nears end (last 300ms), transition to next world
+      if (video.duration && worlds.length > 1) {
         if (currentWorld === worldIndex && !isTransitioning && video.currentTime >= video.duration - 0.3) {
-          const next = worldIndex === 3 ? 1 : worldIndex + 1;
+          const next = worldIndex === worlds.length ? 1 : worldIndex + 1;
           switchWorld(next, 1);
         }
       }
     });
 
     video.addEventListener('ended', () => {
-      if (currentWorld === worldIndex && !isTransitioning) {
-        const next = worldIndex === 3 ? 1 : worldIndex + 1;
+      if (currentWorld === worldIndex && !isTransitioning && worlds.length > 1) {
+        const next = worldIndex === worlds.length ? 1 : worldIndex + 1;
         switchWorld(next, 1);
       }
     });
   }
 
-  setupVideoFlow(videoCaliber, 1);
-  setupVideoFlow(videoSanctum, 2);
-  setupVideoFlow(videoAtelier, 3);
+  if (worlds.length > 1) {
+    setupVideoFlow(videoCaliber, 1);
+    setupVideoFlow(videoSanctum, 2);
+    setupVideoFlow(videoAtelier, 3);
+  }
 
   // --------------------------------------------------------------------------
-  // Gestures & User Interactions
+  // Gestures & User Interactions (Active only if multiple worlds)
   // --------------------------------------------------------------------------
+  if (worlds.length > 1) {
+    // Wheel / Trackpad Scroll (Debounced with Luxury Feel)
+    window.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheelTime < 950) return;
+      if (Math.abs(e.deltaY) > 24) {
+        lastWheelTime = now;
+        if (e.deltaY > 0) {
+          nextWorld();
+        } else {
+          prevWorld();
+        }
+      }
+    }, { passive: true });
 
-  // Wheel / Trackpad Scroll (Debounced with Luxury Feel)
-  window.addEventListener('wheel', (e) => {
-    const now = Date.now();
-    if (now - lastWheelTime < 950) return;
-    if (Math.abs(e.deltaY) > 24) {
-      lastWheelTime = now;
-      if (e.deltaY > 0) {
+    // Touch Swipe
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const touchEndY = e.changedTouches[0].clientY;
+      const diff = touchStartY - touchEndY;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          nextWorld();
+        } else {
+          prevWorld();
+        }
+      }
+    }, { passive: true });
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
         nextWorld();
-      } else {
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
         prevWorld();
       }
-    }
-  }, { passive: true });
+    });
 
-  // Touch Swipe
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener('touchend', (e) => {
-    const touchEndY = e.changedTouches[0].clientY;
-    const diff = touchStartY - touchEndY;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        nextWorld();
-      } else {
-        prevWorld();
+    // Rail Nodes Clicking
+    railNodes.forEach((node, idx) => {
+      if (node) {
+        node.addEventListener('click', () => {
+          const target = idx + 1;
+          const dir = target >= currentWorld ? 1 : -1;
+          switchWorld(target, dir);
+        });
       }
-    }
-  }, { passive: true });
-
-  // Keyboard Navigation
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
-      e.preventDefault();
-      nextWorld();
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-      e.preventDefault();
-      prevWorld();
-    }
-  });
-
-  // Rail Nodes Clicking (I • II • III)
-  railNodes.forEach((node, idx) => {
-    if (node) {
-      node.addEventListener('click', () => {
-        const target = idx + 1;
-        const dir = target >= currentWorld ? 1 : -1;
-        switchWorld(target, dir);
-      });
-    }
-  });
+    });
+  }
 
   if (brandHomeLink) {
     brandHomeLink.addEventListener('click', (e) => {
       e.preventDefault();
-      switchWorld(1, -1);
+      if (worlds.length > 1) {
+        switchWorld(1, -1);
+      }
     });
   }
 

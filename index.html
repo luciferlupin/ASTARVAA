@@ -24,45 +24,6 @@
     </div>
   </header>
 
-  <!-- Luxury Minimalist Vertical World Rail (I • II • III) -->
-  <aside class="world-rail" aria-label="Section Hierarchy">
-    <div class="rail-track">
-      <span class="rail-thumb" id="railThumb"></span>
-    </div>
-    <div class="rail-nodes">
-      <button class="rail-node active" data-index="1" id="node1" aria-label="Act I: The Caliber">
-        <span class="node-num">I</span>
-      </button>
-      <button class="rail-node" data-index="2" id="node2" aria-label="Act II: Sacred Sanctum">
-        <span class="node-num">II</span>
-      </button>
-      <button class="rail-node" data-index="3" id="node3" aria-label="Act III: Atelier Blueprints">
-        <span class="node-num">III</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- Cinematic Transition FX Layers -->
-  <!-- FX 1 -> 2: Divine Sunbeam Temple Portal -->
-  <div class="fx-portal" id="fxPortal" aria-hidden="true">
-    <div class="portal-sunburst"></div>
-    <div class="portal-rays"></div>
-  </div>
-
-  <!-- FX 2 -> 3: Architectural Blueprint CAD Laser Sweep -->
-  <div class="fx-blueprint-scan" id="fxBlueprintScan" aria-hidden="true">
-    <div class="scan-grid"></div>
-    <div class="scan-laser">
-      <span class="laser-flare"></span>
-      <span class="laser-gauge">44.2mm &bull; CAD METRIC SPEC</span>
-    </div>
-  </div>
-
-  <!-- FX 3 -> 1: Horological Aperture Vortex -->
-  <div class="fx-aperture" id="fxAperture" aria-hidden="true">
-    <div class="aperture-iris"></div>
-  </div>
-
   <!-- Universal Sound Control -->
   <div class="sound-control-wrapper">
     <button id="soundToggle" class="sound-toggle" aria-label="Toggle Sound" title="Sound Experience">
@@ -82,7 +43,7 @@
     </button>
   </div>
 
-  <!-- Main Viewport Deck Stage (Stack of 3 Worlds) -->
+  <!-- Main Viewport Deck Stage (Hero Section) -->
   <main class="story-viewport" id="storyViewport">
 
     <!-- ======================================================================
@@ -94,6 +55,7 @@
           id="videoCaliber"
           class="hero-video"
           autoplay
+          loop
           muted
           playsinline
           preload="auto"
@@ -110,23 +72,15 @@
     </section>
 
     <!-- ======================================================================
-         WORLD 2: SACRED SANCTUM (Temple & Watch - 100% Unobstructed, Zero Boxes)
-         ====================================================================== -->
+         OTHER WORLDS (Temporarily removed per user request)
+         ======================================================================
     <section class="world-slide" id="world2" data-index="2">
       <div class="video-container">
-        <video
-          id="videoSanctum"
-          class="hero-video"
-          muted
-          playsinline
-          preload="auto"
-        >
+        <video id="videoSanctum" class="hero-video" muted playsinline preload="auto">
           <source src="assets/astarvaa-temple.mp4" type="video/mp4">
         </video>
         <div class="video-overlay video-overlay-temple" aria-hidden="true"></div>
       </div>
-
-      <!-- Subtle micro bottom indicator (Zero Boxes) -->
       <div class="world-subtle-indicator">
         <span class="subtle-code">II</span>
         <span class="subtle-dot"></span>
@@ -134,24 +88,13 @@
       </div>
     </section>
 
-    <!-- ======================================================================
-         WORLD 3: ATELIER BLUEPRINT & SPECS (Apple-Style Technical Specifications)
-         ====================================================================== -->
     <section class="world-slide" id="world3" data-index="3">
       <div class="video-container">
-        <video
-          id="videoAtelier"
-          class="hero-video"
-          muted
-          playsinline
-          preload="auto"
-        >
+        <video id="videoAtelier" class="hero-video" muted playsinline preload="auto">
           <source src="assets/astarvaa-atelier.mp4" type="video/mp4">
         </video>
         <div class="video-overlay video-overlay-atelier" aria-hidden="true"></div>
       </div>
-
-      <!-- Technical Blueprint Specifications (Apple-Style Ultra-Thin Readout) -->
       <div class="blueprint-specs-container">
         <div class="specs-grid">
           <div class="spec-item">
@@ -175,7 +118,6 @@
             <span class="spec-label">Drafting Scale</span>
           </div>
         </div>
-
         <div class="specs-footer">
           <span class="specs-provenance">BLUEPRINT ARCHIVE &bull; CROWN DETAIL &bull; ANATOMICAL RELIEF &bull; ROCK BASE DETAIL</span>
           <button class="vip-interest-btn notify-trigger" aria-label="Register Interest">
@@ -184,6 +126,7 @@
         </div>
       </div>
     </section>
+    -->
 
   </main>
 
