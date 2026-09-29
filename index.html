@@ -3,26 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ASTARVAA | Coming Soon</title>
-  <meta name="description" content="ASTARVAA — Indian Ideas, Timeless Stories. Coming Soon.">
+  <title>ASTARVAA | Indian Ideas, Timeless Stories</title>
+  <meta name="description" content="ASTARVAA — Haute Horlogerie inspired by timeless Indian heritage. Coming Soon.">
   
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Marcellus&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Full Hero Section -->
-  <main class="hero-section">
-    <div class="coming-soon-wrapper">
-      <h1 class="coming-soon-title">COMING SOON</h1>
+  <!-- Main Hero Viewport -->
+  <main class="hero-section" id="heroSection">
+
+    <!-- Background Video Container -->
+    <div class="video-container">
+      <video
+        id="heroVideo"
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      >
+        <source src="assets/astarvaa-hero.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="video-overlay" aria-hidden="true"></div>
+      <div class="video-vignette" aria-hidden="true"></div>
     </div>
+
+    <!-- Top Brand Header -->
+    <header class="hero-header">
+      <div class="brand-crest">
+        <h2 class="brand-name">ASTARVAA</h2>
+        <span class="brand-tagline">INDIAN IDEAS &bull; TIMELESS STORIES</span>
+      </div>
+    </header>
+
+    <!-- Bottom Stage: Coming Soon -->
+    <footer class="hero-footer">
+      <div class="coming-soon-wrapper">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-label">HORLOGERIE D'ART</span>
+        </div>
+        <h1 class="coming-soon-title">COMING SOON</h1>
+        <div class="ornament-line">
+          <span class="line-bar"></span>
+          <span class="diamond">✦</span>
+          <span class="line-bar"></span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Audio Control Toggle -->
+    <div class="sound-control-wrapper">
+      <button id="soundToggle" class="sound-toggle" aria-label="Toggle Sound" title="Sound Experience">
+        <span class="sound-icon-wrapper">
+          <svg class="sound-icon sound-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <svg class="sound-icon sound-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+        </span>
+        <span class="sound-text" id="soundText">SOUND OFF</span>
+      </button>
+    </div>
+
   </main>
 
+  <script src="script.js"></script>
 </body>
 </html>
