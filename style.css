@@ -131,9 +131,9 @@ html, body {
   left: 0;
   width: 100%;
   z-index: 100;
-  padding: clamp(14px, 2.5vh, 24px) clamp(20px, 4vw, 48px);
+  padding: clamp(16px, 3vh, 28px) clamp(20px, 4vw, 48px);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   background: linear-gradient(to bottom, rgba(13, 7, 4, 0.75) 0%, rgba(13, 7, 4, 0) 100%);
   pointer-events: auto;
@@ -158,92 +158,6 @@ html, body {
 
 .brand-link:hover {
   opacity: 1;
-}
-
-/* Chapter Progress Switcher (01 / 02 / 03) */
-.chapter-nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(8px, 1.2vw, 14px);
-  background: rgba(22, 16, 14, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 5px 12px;
-  border-radius: 40px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.chapter-btn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: transparent;
-  border: none;
-  color: var(--text-faint);
-  cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 20px;
-  transition: color 0.3s ease;
-}
-
-.chapter-num {
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--gold-primary);
-  opacity: 0.65;
-}
-
-.chapter-title {
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-/* Progress track under each chapter button */
-.chapter-progress-track {
-  width: 24px;
-  height: 1.5px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.chapter-progress-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0%;
-  background: #FFFFFF;
-  border-radius: 2px;
-  transition: width 0.15s linear;
-}
-
-.chapter-btn.active {
-  color: #FFFFFF;
-}
-
-.chapter-btn.active .chapter-num {
-  opacity: 1;
-  color: var(--gold-bright);
-}
-
-.chapter-btn.active .chapter-title {
-  color: #FFFFFF;
-  font-weight: 400;
-}
-
-.chapter-btn.active .chapter-progress-fill {
-  background: var(--gold-bright);
-  box-shadow: 0 0 6px rgba(247, 225, 181, 0.6);
-}
-
-.chapter-separator {
-  color: rgba(255, 255, 255, 0.2);
-  font-size: 11px;
-  font-weight: 200;
 }
 
 /* --------------------------------------------------------------------------
