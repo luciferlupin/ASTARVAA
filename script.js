@@ -1,58 +1,68 @@
 /**
- * ASTARVAA — Three-Chapter Storytelling Engine
- * Auto-flow sequencing across 3 acts, chapter progress bars, scroll synchronization, and sound management.
+ * ASTARVAA — Apple-Grade World Transition Engine
+ * Celestial Temple Portal (1 -> 2), CAD Laser Sweep (2 -> 3), and Aperture Vortex (3 -> 1).
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Container & Sections
-  const storyContainer = document.getElementById('storyContainer');
-  const sectionCaliber = document.getElementById('sectionCaliber');
-  const sectionSanctum = document.getElementById('sectionSanctum');
-  const sectionAtelier = document.getElementById('sectionAtelier');
-
-  const sections = [sectionCaliber, sectionSanctum, sectionAtelier];
+  // World Elements
+  const world1 = document.getElementById('world1');
+  const world2 = document.getElementById('world2');
+  const world3 = document.getElementById('world3');
+  const worlds = [world1, world2, world3];
 
   // Videos
   const videoCaliber = document.getElementById('videoCaliber');
   const videoSanctum = document.getElementById('videoSanctum');
   const videoAtelier = document.getElementById('videoAtelier');
-
   const videos = [videoCaliber, videoSanctum, videoAtelier];
 
-  // Chapter Buttons & Progress Bars
-  const btnChapter1 = document.getElementById('btnChapter1');
-  const btnChapter2 = document.getElementById('btnChapter2');
-  const btnChapter3 = document.getElementById('btnChapter3');
-  const chapterButtons = [btnChapter1, btnChapter2, btnChapter3];
+  // FX Layers
+  const fxPortal = document.getElementById('fxPortal');
+  const fxBlueprintScan = document.getElementById('fxBlueprintScan');
+  const fxAperture = document.getElementById('fxAperture');
 
-  const fillChapter1 = document.getElementById('fillChapter1');
-  const fillChapter2 = document.getElementById('fillChapter2');
-  const fillChapter3 = document.getElementById('fillChapter3');
-  const progressFills = [fillChapter1, fillChapter2, fillChapter3];
+  // World Rail
+  const node1 = document.getElementById('node1');
+  const node2 = document.getElementById('node2');
+  const node3 = document.getElementById('node3');
+  const railNodes = [node1, node2, node3];
+  const railThumb = document.getElementById('railThumb');
 
-  // Navigation & Scroll Cue Links
+  // Nav & Controls
   const brandHomeLink = document.getElementById('brandHomeLink');
-  const cueToSanctum = document.getElementById('cueToSanctum');
-  const cueToCaliber = document.getElementById('cueToCaliber');
-  const cueToAtelier = document.getElementById('cueToAtelier');
-  const cueToSanctumFrom3 = document.getElementById('cueToSanctumFrom3');
-  const cueRestartToCaliber = document.getElementById('cueRestartToCaliber');
-
-  // Sound Controls
   const soundToggle = document.getElementById('soundToggle');
   const soundText = document.getElementById('soundText');
 
-  // VIP Modal Elements
+  // VIP Modal
   const vipModal = document.getElementById('vipModal');
   const notifyTriggers = document.querySelectorAll('.notify-trigger');
   const modalClose = document.getElementById('modalClose');
   const vipForm = document.getElementById('vipForm');
   const formFeedback = document.getElementById('formFeedback');
 
-  // Application State
-  let activeChapter = 1;
-  let isSoundOn = false;
+  // Engine State
+  let currentWorld = 1;
   let isTransitioning = false;
+  let isSoundOn = false;
+  let lastWheelTime = 0;
+  let touchStartY = 0;
+
+  // --------------------------------------------------------------------------
+  // Rail Thumb Positioning
+  // --------------------------------------------------------------------------
+  function updateRail(targetIndex) {
+    railNodes.forEach((node, idx) => {
+      if (!node) return;
+      if (idx + 1 === targetIndex) {
+        node.classList.add('active');
+        if (railThumb) {
+          railThumb.style.transform = `translateY(${idx * 48}px)`;
+        }
+      } else {
+        node.classList.remove('active');
+      }
+    });
+  }
 
   // --------------------------------------------------------------------------
   // Video Playback & Sound Helpers
@@ -71,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function syncAudioState() {
     videos.forEach((vid, index) => {
       if (!vid) return;
-      if (index + 1 === activeChapter) {
+      if (index + 1 === currentWorld) {
         vid.muted = !isSoundOn;
       } else {
         vid.muted = true;
@@ -90,70 +100,109 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // Chapter Navigation & Switching
+  // World Switcher with Cinematic Transition FX
   // --------------------------------------------------------------------------
-  function goToChapter(chapterNum, manual = false) {
-    if (chapterNum < 1 || chapterNum > 3) return;
-    activeChapter = chapterNum;
+  function switchWorld(targetIndex, direction = 1) {
+    if (targetIndex === currentWorld || isTransitioning) return;
+    if (targetIndex < 1 || targetIndex > 3) return;
 
-    // Update Nav Button Active Highlights
-    chapterButtons.forEach((btn, index) => {
-      if (!btn) return;
-      if (index + 1 === chapterNum) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
+    isTransitioning = true;
+    const prevIndex = currentWorld;
+    currentWorld = targetIndex;
+
+    const prevSlide = worlds[prevIndex - 1];
+    const nextSlide = worlds[targetIndex - 1];
+
+    updateRail(targetIndex);
+
+    // 1. Trigger Custom Transition Animation
+    if (prevIndex === 1 && targetIndex === 2) {
+      // World 1 -> 2: Divine Sunbeam Temple Portal
+      if (fxPortal) {
+        fxPortal.classList.add('animating');
+        setTimeout(() => fxPortal.classList.remove('animating'), 1200);
       }
-    });
-
-    const targetSection = sections[chapterNum - 1];
-    if (targetSection) {
-      isTransitioning = true;
-      targetSection.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        isTransitioning = false;
-      }, 1000);
+    } else if (prevIndex === 2 && targetIndex === 3) {
+      // World 2 -> 3: Architectural CAD Laser Sweep
+      if (fxBlueprintScan) {
+        fxBlueprintScan.classList.add('animating');
+        setTimeout(() => fxBlueprintScan.classList.remove('animating'), 1200);
+      }
+    } else if (prevIndex === 3 && targetIndex === 1) {
+      // World 3 -> 1: Horological Aperture Vortex
+      if (fxAperture) {
+        fxAperture.classList.add('animating');
+        setTimeout(() => fxAperture.classList.remove('animating'), 1300);
+      }
     }
 
-    // Manage Video playback for active vs inactive
-    videos.forEach((vid, index) => {
+    // 2. Animate Slide Layers with Depth Parallax
+    if (prevSlide) {
+      prevSlide.classList.remove('active');
+      if (direction > 0) {
+        prevSlide.classList.add('exited-up');
+      } else {
+        prevSlide.classList.add('exited-down');
+      }
+    }
+
+    if (nextSlide) {
+      nextSlide.classList.remove('exited-up', 'exited-down');
+      nextSlide.classList.add('active');
+    }
+
+    // 3. Audio & Video Lifecycle
+    videos.forEach((vid, idx) => {
       if (!vid) return;
-      if (index + 1 === chapterNum) {
-        if (manual) vid.currentTime = 0;
+      if (idx + 1 === targetIndex) {
+        vid.currentTime = 0;
         playVideoSafely(vid);
       } else {
-        vid.pause();
+        setTimeout(() => vid.pause(), 400);
       }
     });
 
     syncAudioState();
+
+    // 4. Release Transition Lock
+    setTimeout(() => {
+      if (prevSlide) {
+        prevSlide.classList.remove('exited-up', 'exited-down');
+      }
+      isTransitioning = false;
+    }, 1100);
+  }
+
+  function nextWorld() {
+    const next = currentWorld === 3 ? 1 : currentWorld + 1;
+    switchWorld(next, 1);
+  }
+
+  function prevWorld() {
+    const prev = currentWorld === 1 ? 3 : currentWorld - 1;
+    switchWorld(prev, -1);
   }
 
   // --------------------------------------------------------------------------
-  // Progress Bar Tracking & Automatic Story Flow Logic (1 -> 2 -> 3 -> 1)
+  // Automatic Story Flow (Video timeupdate & ended)
   // --------------------------------------------------------------------------
-  function setupVideoFlow(video, chapterIndex) {
+  function setupVideoFlow(video, worldIndex) {
     if (!video) return;
-    const fillBar = progressFills[chapterIndex - 1];
 
     video.addEventListener('timeupdate', () => {
       if (video.duration) {
-        const pct = (video.currentTime / video.duration) * 100;
-        if (fillBar) fillBar.style.width = `${Math.min(100, pct)}%`;
-
-        // Near completion (last 250ms), transition to the next chapter
-        if (activeChapter === chapterIndex && !isTransitioning && video.currentTime >= video.duration - 0.25) {
-          if (fillBar) fillBar.style.width = '100%';
-          const nextChapter = chapterIndex === 3 ? 1 : chapterIndex + 1;
-          goToChapter(nextChapter, true);
+        // When video nears end (last 300ms), transition to next world
+        if (currentWorld === worldIndex && !isTransitioning && video.currentTime >= video.duration - 0.3) {
+          const next = worldIndex === 3 ? 1 : worldIndex + 1;
+          switchWorld(next, 1);
         }
       }
     });
 
     video.addEventListener('ended', () => {
-      if (activeChapter === chapterIndex && !isTransitioning) {
-        const nextChapter = chapterIndex === 3 ? 1 : chapterIndex + 1;
-        goToChapter(nextChapter, true);
+      if (currentWorld === worldIndex && !isTransitioning) {
+        const next = worldIndex === 3 ? 1 : worldIndex + 1;
+        switchWorld(next, 1);
       }
     });
   }
@@ -163,72 +212,70 @@ document.addEventListener('DOMContentLoaded', () => {
   setupVideoFlow(videoAtelier, 3);
 
   // --------------------------------------------------------------------------
-  // Scroll Synchronization (IntersectionObserver)
+  // Gestures & User Interactions
   // --------------------------------------------------------------------------
-  const observerOptions = {
-    root: storyContainer,
-    threshold: 0.6
-  };
 
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !isTransitioning) {
-        const chapter = parseInt(entry.target.getAttribute('data-chapter'), 10);
-        if (chapter && chapter !== activeChapter) {
-          activeChapter = chapter;
-
-          chapterButtons.forEach((btn, index) => {
-            if (!btn) return;
-            if (index + 1 === chapter) {
-              btn.classList.add('active');
-            } else {
-              btn.classList.remove('active');
-            }
-          });
-
-          videos.forEach((vid, index) => {
-            if (!vid) return;
-            if (index + 1 === chapter) {
-              playVideoSafely(vid);
-            } else {
-              vid.pause();
-            }
-          });
-
-          syncAudioState();
-        }
+  // Wheel / Trackpad Scroll (Debounced with Luxury Feel)
+  window.addEventListener('wheel', (e) => {
+    const now = Date.now();
+    if (now - lastWheelTime < 950) return;
+    if (Math.abs(e.deltaY) > 24) {
+      lastWheelTime = now;
+      if (e.deltaY > 0) {
+        nextWorld();
+      } else {
+        prevWorld();
       }
-    });
-  }, observerOptions);
+    }
+  }, { passive: true });
 
-  sections.forEach((sec) => {
-    if (sec) sectionObserver.observe(sec);
+  // Touch Swipe
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY - touchEndY;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextWorld();
+      } else {
+        prevWorld();
+      }
+    }
+  }, { passive: true });
+
+  // Keyboard Navigation
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      nextWorld();
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      prevWorld();
+    }
   });
 
-  // --------------------------------------------------------------------------
-  // Interactive Navigation Handlers
-  // --------------------------------------------------------------------------
-  if (btnChapter1) btnChapter1.addEventListener('click', () => goToChapter(1, true));
-  if (btnChapter2) btnChapter2.addEventListener('click', () => goToChapter(2, true));
-  if (btnChapter3) btnChapter3.addEventListener('click', () => goToChapter(3, true));
+  // Rail Nodes Clicking (I • II • III)
+  railNodes.forEach((node, idx) => {
+    if (node) {
+      node.addEventListener('click', () => {
+        const target = idx + 1;
+        const dir = target >= currentWorld ? 1 : -1;
+        switchWorld(target, dir);
+      });
+    }
+  });
 
   if (brandHomeLink) {
     brandHomeLink.addEventListener('click', (e) => {
       e.preventDefault();
-      goToChapter(1, true);
+      switchWorld(1, -1);
     });
   }
 
-  // Scroll Cues between chapters
-  if (cueToSanctum) cueToSanctum.addEventListener('click', () => goToChapter(2, true));
-  if (cueToCaliber) cueToCaliber.addEventListener('click', () => goToChapter(1, true));
-  if (cueToAtelier) cueToAtelier.addEventListener('click', () => goToChapter(3, true));
-  if (cueToSanctumFrom3) cueToSanctumFrom3.addEventListener('click', () => goToChapter(2, true));
-  if (cueRestartToCaliber) cueRestartToCaliber.addEventListener('click', () => goToChapter(1, true));
-
-  // --------------------------------------------------------------------------
-  // Universal Sound Toggle Control
-  // --------------------------------------------------------------------------
+  // Universal Sound Control
   if (soundToggle) {
     soundToggle.addEventListener('click', () => {
       isSoundOn = !isSoundOn;
@@ -236,9 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --------------------------------------------------------------------------
-  // VIP Register Interest Dialog
-  // --------------------------------------------------------------------------
+  // VIP Modal Dialog
   notifyTriggers.forEach((btn) => {
     btn.addEventListener('click', () => {
       if (vipModal) vipModal.showModal();
@@ -254,15 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (vipModal) {
     vipModal.addEventListener('click', (e) => {
       const rect = vipModal.getBoundingClientRect();
-      const isInDialog = (
+      const inDialog = (
         rect.top <= e.clientY &&
         e.clientY <= rect.top + rect.height &&
         rect.left <= e.clientX &&
         e.clientX <= rect.left + rect.width
       );
-      if (!isInDialog) {
-        vipModal.close();
-      }
+      if (!inDialog) vipModal.close();
     });
   }
 
@@ -281,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           if (vipModal) vipModal.close();
           submitBtn.disabled = false;
-          submitBtn.textContent = 'JOIN WAITLIST';
+          submitBtn.textContent = 'NOTIFY ME';
           emailInput.value = '';
           if (formFeedback) formFeedback.textContent = '';
         }, 2200);
@@ -289,7 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial playback start
+  // Initial State
   playVideoSafely(videoCaliber);
   syncAudioState();
+  updateRail(1);
 });

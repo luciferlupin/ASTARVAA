@@ -20,9 +20,48 @@
   <!-- Minimalist Apple-Style Fixed Navigation -->
   <header class="global-nav">
     <div class="nav-brand">
-      <a href="#sectionCaliber" class="brand-link" id="brandHomeLink">ASTARVAA</a>
+      <a href="#world1" class="brand-link" id="brandHomeLink">ASTARVAA</a>
     </div>
   </header>
+
+  <!-- Luxury Minimalist Vertical World Rail (I • II • III) -->
+  <aside class="world-rail" aria-label="Section Hierarchy">
+    <div class="rail-track">
+      <span class="rail-thumb" id="railThumb"></span>
+    </div>
+    <div class="rail-nodes">
+      <button class="rail-node active" data-index="1" id="node1" aria-label="Act I: The Caliber">
+        <span class="node-num">I</span>
+      </button>
+      <button class="rail-node" data-index="2" id="node2" aria-label="Act II: Sacred Sanctum">
+        <span class="node-num">II</span>
+      </button>
+      <button class="rail-node" data-index="3" id="node3" aria-label="Act III: Atelier Blueprints">
+        <span class="node-num">III</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Cinematic Transition FX Layers -->
+  <!-- FX 1 -> 2: Divine Sunbeam Temple Portal -->
+  <div class="fx-portal" id="fxPortal" aria-hidden="true">
+    <div class="portal-sunburst"></div>
+    <div class="portal-rays"></div>
+  </div>
+
+  <!-- FX 2 -> 3: Architectural Blueprint CAD Laser Sweep -->
+  <div class="fx-blueprint-scan" id="fxBlueprintScan" aria-hidden="true">
+    <div class="scan-grid"></div>
+    <div class="scan-laser">
+      <span class="laser-flare"></span>
+      <span class="laser-gauge">44.2mm &bull; CAD METRIC SPEC</span>
+    </div>
+  </div>
+
+  <!-- FX 3 -> 1: Horological Aperture Vortex -->
+  <div class="fx-aperture" id="fxAperture" aria-hidden="true">
+    <div class="aperture-iris"></div>
+  </div>
 
   <!-- Universal Sound Control -->
   <div class="sound-control-wrapper">
@@ -43,13 +82,13 @@
     </button>
   </div>
 
-  <!-- Main Scrollable Story Container -->
-  <main class="story-container" id="storyContainer">
+  <!-- Main Viewport Deck Stage (Stack of 3 Worlds) -->
+  <main class="story-viewport" id="storyViewport">
 
     <!-- ======================================================================
-         SECTION 1: THE CALIBER (Hero - Purely "COMING SOON")
+         WORLD 1: THE CALIBER (Hero - Purely "COMING SOON")
          ====================================================================== -->
-    <section class="story-section" id="sectionCaliber" data-chapter="1">
+    <section class="world-slide active" id="world1" data-index="1">
       <div class="video-container">
         <video
           id="videoCaliber"
@@ -71,9 +110,9 @@
     </section>
 
     <!-- ======================================================================
-         SECTION 2: SACRED SANCTUM (Temple & Timepiece - No Boxes)
+         WORLD 2: SACRED SANCTUM (Temple & Watch - 100% Unobstructed, Zero Boxes)
          ====================================================================== -->
-    <section class="story-section" id="sectionSanctum" data-chapter="2">
+    <section class="world-slide" id="world2" data-index="2">
       <div class="video-container">
         <video
           id="videoSanctum"
@@ -87,16 +126,18 @@
         <div class="video-overlay video-overlay-temple" aria-hidden="true"></div>
       </div>
 
-      <!-- Completely unobstructed view: No boxes, subtle transparent bottom tag -->
-      <div class="sanctum-subtle-bar">
-        <span class="sanctum-label">THE SANKAT MOCHAN &bull; SWISS ATELIER</span>
+      <!-- Subtle micro bottom indicator (Zero Boxes) -->
+      <div class="world-subtle-indicator">
+        <span class="subtle-code">II</span>
+        <span class="subtle-dot"></span>
+        <span class="subtle-name">SACRED SANCTUM</span>
       </div>
     </section>
 
     <!-- ======================================================================
-         SECTION 3: ATELIER BLUEPRINT & SPECS (Apple-Style Technical Specifications)
+         WORLD 3: ATELIER BLUEPRINT & SPECS (Apple-Style Technical Specifications)
          ====================================================================== -->
-    <section class="story-section" id="sectionAtelier" data-chapter="3">
+    <section class="world-slide" id="world3" data-index="3">
       <div class="video-container">
         <video
           id="videoAtelier"
@@ -110,7 +151,7 @@
         <div class="video-overlay video-overlay-atelier" aria-hidden="true"></div>
       </div>
 
-      <!-- Technical Blueprint Specifications Strip (Apple-Style Thin Weight Readout) -->
+      <!-- Technical Blueprint Specifications (Apple-Style Ultra-Thin Readout) -->
       <div class="blueprint-specs-container">
         <div class="specs-grid">
           <div class="spec-item">
