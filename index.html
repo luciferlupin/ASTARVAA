@@ -24,7 +24,7 @@
       <span class="nav-subtitle">INDIAN IDEAS &bull; TIMELESS STORIES</span>
     </div>
 
-    <!-- Chapter Progress Switcher (01 / 02) -->
+    <!-- Chapter Progress Switcher (01 / 02 / 03) -->
     <nav class="chapter-nav" aria-label="Story Chapters">
       <button class="chapter-btn active" data-target="sectionCaliber" id="btnChapter1" aria-label="Chapter 01: The Caliber">
         <span class="chapter-num">01</span>
@@ -41,6 +41,16 @@
         <span class="chapter-title">SACRED SANCTUM</span>
         <span class="chapter-progress-track">
           <span class="chapter-progress-fill" id="fillChapter2"></span>
+        </span>
+      </button>
+
+      <div class="chapter-separator" aria-hidden="true">/</div>
+
+      <button class="chapter-btn" data-target="sectionAtelier" id="btnChapter3" aria-label="Chapter 03: Atelier Blueprints">
+        <span class="chapter-num">03</span>
+        <span class="chapter-title">ATELIER</span>
+        <span class="chapter-progress-track">
+          <span class="chapter-progress-fill" id="fillChapter3"></span>
         </span>
       </button>
     </nav>
@@ -158,16 +168,82 @@
           </p>
 
           <div class="sanctum-actions">
-            <button class="vip-interest-btn" id="btnNotify">
+            <button class="vip-interest-btn notify-trigger" aria-label="Register for Private Preview">
               <span class="btn-text">REGISTER FOR PRIVATE PREVIEW</span>
               <span class="btn-glow" aria-hidden="true"></span>
             </button>
           </div>
         </div>
 
-        <div class="sanctum-footer-note">
-          <span>ASTARVAA &bull; TIMEPIECE ARCHIVE &bull; MMXXVI</span>
+        <!-- Scroll down prompt to Chapter 3 -->
+        <button class="scroll-cue" id="cueToAtelier" aria-label="Explore Atelier Blueprints">
+          <span class="cue-label">NEXT: ATELIER BLUEPRINTS</span>
+          <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 3: ATELIER BLUEPRINTS (Technical Drafting & Métiers d'Art)
+         ====================================================================== -->
+    <section class="story-section" id="sectionAtelier" data-chapter="3">
+      <div class="video-container">
+        <video
+          id="videoAtelier"
+          class="hero-video"
+          muted
+          playsinline
+          preload="auto"
+        >
+          <source src="assets/astarvaa-atelier.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="video-overlay video-overlay-atelier" aria-hidden="true"></div>
+        <div class="video-vignette video-vignette-atelier" aria-hidden="true"></div>
+      </div>
+
+      <div class="section-content">
+        <!-- Return to Sanctum prompt -->
+        <button class="scroll-cue scroll-cue-top" id="cueToSanctumFrom3" aria-label="Previous: Sacred Sanctum">
+          <svg class="cue-arrow cue-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+          <span class="cue-label">PREVIOUS: SACRED SANCTUM</span>
+        </button>
+
+        <!-- Atelier Presentation Card -->
+        <div class="sanctum-card atelier-card">
+          <div class="status-indicator">
+            <span class="status-dot atelier-dot"></span>
+            <span class="status-label">ACT III &bull; MÉTIERS D'ART</span>
+          </div>
+          <h2 class="sanctum-title">ARCHITECTURAL BLUEPRINTS</h2>
+          <div class="ornament-line">
+            <span class="line-bar"></span>
+            <span class="diamond">✦</span>
+            <span class="line-bar"></span>
+          </div>
+          <p class="sanctum-description">
+            44.2mm architectural case &bull; 9.8mm high-relief sculpted Hanuman cameo &bull; Hand-engraved rock base & subdial geometry
+          </p>
+
+          <div class="sanctum-actions">
+            <button class="vip-interest-btn notify-trigger" aria-label="Register for Private Preview">
+              <span class="btn-text">REQUEST COLLECTOR DOSSIER</span>
+              <span class="btn-glow" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
+
+        <!-- Loop back to Chapter 1 -->
+        <button class="scroll-cue scroll-cue-loop" id="cueRestartToCaliber" aria-label="Replay Exhibition from Act I">
+          <span class="cue-label">REPLAY EXHIBITION &bull; THE CALIBER</span>
+          <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -180,7 +256,7 @@
       <div class="modal-badge">EXCLUSIVE ALLOCATION</div>
       <h3 class="modal-title">THE SANKAT MOCHAN</h3>
       <p class="modal-desc">
-        A strictly numbered haute horlogerie collection honoring timeless devotion. Register your email for private early access invitations and private atelier updates.
+        A strictly numbered haute horlogerie collection honoring timeless devotion. Register your email for private early access invitations and collector dossier updates.
       </p>
       <form class="modal-form" id="vipForm">
         <div class="input-wrapper">

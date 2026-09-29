@@ -1,31 +1,50 @@
 /**
- * ASTARVAA — Two-Chapter Storytelling Engine
- * Auto-flow sequencing, chapter progress bars, scroll synchronization, and sound management.
+ * ASTARVAA — Three-Chapter Storytelling Engine
+ * Auto-flow sequencing across 3 acts, chapter progress bars, scroll synchronization, and sound management.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Elements
+  // Container & Sections
   const storyContainer = document.getElementById('storyContainer');
   const sectionCaliber = document.getElementById('sectionCaliber');
   const sectionSanctum = document.getElementById('sectionSanctum');
+  const sectionAtelier = document.getElementById('sectionAtelier');
 
+  const sections = [sectionCaliber, sectionSanctum, sectionAtelier];
+
+  // Videos
   const videoCaliber = document.getElementById('videoCaliber');
   const videoSanctum = document.getElementById('videoSanctum');
+  const videoAtelier = document.getElementById('videoAtelier');
 
+  const videos = [videoCaliber, videoSanctum, videoAtelier];
+
+  // Chapter Buttons & Progress Bars
   const btnChapter1 = document.getElementById('btnChapter1');
   const btnChapter2 = document.getElementById('btnChapter2');
+  const btnChapter3 = document.getElementById('btnChapter3');
+  const chapterButtons = [btnChapter1, btnChapter2, btnChapter3];
+
   const fillChapter1 = document.getElementById('fillChapter1');
   const fillChapter2 = document.getElementById('fillChapter2');
+  const fillChapter3 = document.getElementById('fillChapter3');
+  const progressFills = [fillChapter1, fillChapter2, fillChapter3];
 
+  // Navigation & Scroll Cue Links
+  const brandHomeLink = document.getElementById('brandHomeLink');
   const cueToSanctum = document.getElementById('cueToSanctum');
   const cueToCaliber = document.getElementById('cueToCaliber');
-  const brandHomeLink = document.getElementById('brandHomeLink');
+  const cueToAtelier = document.getElementById('cueToAtelier');
+  const cueToSanctumFrom3 = document.getElementById('cueToSanctumFrom3');
+  const cueRestartToCaliber = document.getElementById('cueRestartToCaliber');
 
+  // Sound Controls
   const soundToggle = document.getElementById('soundToggle');
   const soundText = document.getElementById('soundText');
 
+  // VIP Modal Elements
   const vipModal = document.getElementById('vipModal');
-  const btnNotify = document.getElementById('btnNotify');
+  const notifyTriggers = document.querySelectorAll('.notify-trigger');
   const modalClose = document.getElementById('modalClose');
   const vipForm = document.getElementById('vipForm');
   const formFeedback = document.getElementById('formFeedback');
@@ -43,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const promise = video.play();
     if (promise !== undefined) {
       promise.catch(() => {
-        // Autoplay policy fallback: mute and retry
         video.muted = true;
         video.play().catch(() => {});
       });
@@ -51,13 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function syncAudioState() {
-    if (activeChapter === 1) {
-      if (videoCaliber) videoCaliber.muted = !isSoundOn;
-      if (videoSanctum) videoSanctum.muted = true;
-    } else {
-      if (videoSanctum) videoSanctum.muted = !isSoundOn;
-      if (videoCaliber) videoCaliber.muted = true;
-    }
+    videos.forEach((vid, index) => {
+      if (!vid) return;
+      if (index + 1 === activeChapter) {
+        vid.muted = !isSoundOn;
+      } else {
+        vid.muted = true;
+      }
+    });
 
     if (soundToggle) {
       if (isSoundOn) {
@@ -74,21 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Chapter Navigation & Switching
   // --------------------------------------------------------------------------
   function goToChapter(chapterNum, manual = false) {
-    if (chapterNum === activeChapter && !manual) return;
+    if (chapterNum < 1 || chapterNum > 3) return;
     activeChapter = chapterNum;
 
-    // Update Nav Pills
-    if (btnChapter1 && btnChapter2) {
-      if (chapterNum === 1) {
-        btnChapter1.classList.add('active');
-        btnChapter2.classList.remove('active');
+    // Update Nav Button Active Highlights
+    chapterButtons.forEach((btn, index) => {
+      if (!btn) return;
+      if (index + 1 === chapterNum) {
+        btn.classList.add('active');
       } else {
-        btnChapter2.classList.add('active');
-        btnChapter1.classList.remove('active');
+        btn.classList.remove('active');
       }
-    }
+    });
 
-    const targetSection = chapterNum === 1 ? sectionCaliber : sectionSanctum;
+    const targetSection = sections[chapterNum - 1];
     if (targetSection) {
       isTransitioning = true;
       targetSection.scrollIntoView({ behavior: 'smooth' });
@@ -97,71 +115,52 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1000);
     }
 
-    if (chapterNum === 1) {
-      if (videoCaliber) {
-        if (manual) videoCaliber.currentTime = 0;
-        playVideoSafely(videoCaliber);
+    // Manage Video playback for active vs inactive
+    videos.forEach((vid, index) => {
+      if (!vid) return;
+      if (index + 1 === chapterNum) {
+        if (manual) vid.currentTime = 0;
+        playVideoSafely(vid);
+      } else {
+        vid.pause();
       }
-      if (videoSanctum) {
-        videoSanctum.pause();
-      }
-    } else {
-      if (videoSanctum) {
-        if (manual) videoSanctum.currentTime = 0;
-        playVideoSafely(videoSanctum);
-      }
-      if (videoCaliber) {
-        videoCaliber.pause();
-      }
-    }
+    });
 
     syncAudioState();
   }
 
   // --------------------------------------------------------------------------
-  // Progress Bar Tracking & Automatic Video Flow Logic
+  // Progress Bar Tracking & Automatic Story Flow Logic (1 -> 2 -> 3 -> 1)
   // --------------------------------------------------------------------------
-  if (videoCaliber) {
-    videoCaliber.addEventListener('timeupdate', () => {
-      if (videoCaliber.duration) {
-        const pct = (videoCaliber.currentTime / videoCaliber.duration) * 100;
-        if (fillChapter1) fillChapter1.style.width = `${Math.min(100, pct)}%`;
+  function setupVideoFlow(video, chapterIndex) {
+    if (!video) return;
+    const fillBar = progressFills[chapterIndex - 1];
 
-        // When Video 1 completes (within 250ms of end), smoothly transition to Act II
-        if (activeChapter === 1 && !isTransitioning && videoCaliber.currentTime >= videoCaliber.duration - 0.25) {
-          if (fillChapter1) fillChapter1.style.width = '100%';
-          goToChapter(2, true);
+    video.addEventListener('timeupdate', () => {
+      if (video.duration) {
+        const pct = (video.currentTime / video.duration) * 100;
+        if (fillBar) fillBar.style.width = `${Math.min(100, pct)}%`;
+
+        // Near completion (last 250ms), transition to the next chapter
+        if (activeChapter === chapterIndex && !isTransitioning && video.currentTime >= video.duration - 0.25) {
+          if (fillBar) fillBar.style.width = '100%';
+          const nextChapter = chapterIndex === 3 ? 1 : chapterIndex + 1;
+          goToChapter(nextChapter, true);
         }
       }
     });
 
-    videoCaliber.addEventListener('ended', () => {
-      if (activeChapter === 1 && !isTransitioning) {
-        goToChapter(2, true);
+    video.addEventListener('ended', () => {
+      if (activeChapter === chapterIndex && !isTransitioning) {
+        const nextChapter = chapterIndex === 3 ? 1 : chapterIndex + 1;
+        goToChapter(nextChapter, true);
       }
     });
   }
 
-  if (videoSanctum) {
-    videoSanctum.addEventListener('timeupdate', () => {
-      if (videoSanctum.duration) {
-        const pct = (videoSanctum.currentTime / videoSanctum.duration) * 100;
-        if (fillChapter2) fillChapter2.style.width = `${Math.min(100, pct)}%`;
-
-        // When Video 2 completes, smoothly return to Act I for infinite luxury exhibition loop
-        if (activeChapter === 2 && !isTransitioning && videoSanctum.currentTime >= videoSanctum.duration - 0.25) {
-          if (fillChapter2) fillChapter2.style.width = '100%';
-          goToChapter(1, true);
-        }
-      }
-    });
-
-    videoSanctum.addEventListener('ended', () => {
-      if (activeChapter === 2 && !isTransitioning) {
-        goToChapter(1, true);
-      }
-    });
-  }
+  setupVideoFlow(videoCaliber, 1);
+  setupVideoFlow(videoSanctum, 2);
+  setupVideoFlow(videoAtelier, 3);
 
   // --------------------------------------------------------------------------
   // Scroll Synchronization (IntersectionObserver)
@@ -177,50 +176,58 @@ document.addEventListener('DOMContentLoaded', () => {
         const chapter = parseInt(entry.target.getAttribute('data-chapter'), 10);
         if (chapter && chapter !== activeChapter) {
           activeChapter = chapter;
-          if (chapter === 1) {
-            btnChapter1.classList.add('active');
-            btnChapter2.classList.remove('active');
-            playVideoSafely(videoCaliber);
-            if (videoSanctum) videoSanctum.pause();
-          } else {
-            btnChapter2.classList.add('active');
-            btnChapter1.classList.remove('active');
-            playVideoSafely(videoSanctum);
-            if (videoCaliber) videoCaliber.pause();
-          }
+
+          chapterButtons.forEach((btn, index) => {
+            if (!btn) return;
+            if (index + 1 === chapter) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+
+          videos.forEach((vid, index) => {
+            if (!vid) return;
+            if (index + 1 === chapter) {
+              playVideoSafely(vid);
+            } else {
+              vid.pause();
+            }
+          });
+
           syncAudioState();
         }
       }
     });
   }, observerOptions);
 
-  if (sectionCaliber) sectionObserver.observe(sectionCaliber);
-  if (sectionSanctum) sectionObserver.observe(sectionSanctum);
+  sections.forEach((sec) => {
+    if (sec) sectionObserver.observe(sec);
+  });
 
   // --------------------------------------------------------------------------
   // Interactive Navigation Handlers
   // --------------------------------------------------------------------------
-  if (btnChapter1) {
-    btnChapter1.addEventListener('click', () => goToChapter(1, true));
-  }
-  if (btnChapter2) {
-    btnChapter2.addEventListener('click', () => goToChapter(2, true));
-  }
+  if (btnChapter1) btnChapter1.addEventListener('click', () => goToChapter(1, true));
+  if (btnChapter2) btnChapter2.addEventListener('click', () => goToChapter(2, true));
+  if (btnChapter3) btnChapter3.addEventListener('click', () => goToChapter(3, true));
+
   if (brandHomeLink) {
     brandHomeLink.addEventListener('click', (e) => {
       e.preventDefault();
       goToChapter(1, true);
     });
   }
-  if (cueToSanctum) {
-    cueToSanctum.addEventListener('click', () => goToChapter(2, true));
-  }
-  if (cueToCaliber) {
-    cueToCaliber.addEventListener('click', () => goToChapter(1, true));
-  }
+
+  // Scroll Cues between chapters
+  if (cueToSanctum) cueToSanctum.addEventListener('click', () => goToChapter(2, true));
+  if (cueToCaliber) cueToCaliber.addEventListener('click', () => goToChapter(1, true));
+  if (cueToAtelier) cueToAtelier.addEventListener('click', () => goToChapter(3, true));
+  if (cueToSanctumFrom3) cueToSanctumFrom3.addEventListener('click', () => goToChapter(2, true));
+  if (cueRestartToCaliber) cueRestartToCaliber.addEventListener('click', () => goToChapter(1, true));
 
   // --------------------------------------------------------------------------
-  // Sound Toggle Control
+  // Universal Sound Toggle Control
   // --------------------------------------------------------------------------
   if (soundToggle) {
     soundToggle.addEventListener('click', () => {
@@ -232,11 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   // VIP Register Interest Dialog
   // --------------------------------------------------------------------------
-  if (btnNotify && vipModal) {
-    btnNotify.addEventListener('click', () => {
-      vipModal.showModal();
+  notifyTriggers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (vipModal) vipModal.showModal();
     });
-  }
+  });
 
   if (modalClose && vipModal) {
     modalClose.addEventListener('click', () => {
@@ -245,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (vipModal) {
-    // Close on backdrop click
     vipModal.addEventListener('click', (e) => {
       const rect = vipModal.getBoundingClientRect();
       const isInDialog = (

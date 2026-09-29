@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ASTARVAA — Haute Horlogerie Two-Chapter Cinematic Experience
+   ASTARVAA — Haute Horlogerie Three-Chapter Cinematic Experience
    ========================================================================== */
 
 :root {
@@ -8,7 +8,8 @@
   --gold-deep: #A77335;
   --gold-glow: rgba(216, 165, 97, 0.4);
   --bg-deep: #0D0704;
-  --bg-card: rgba(18, 11, 7, 0.72);
+  --bg-card: rgba(18, 11, 7, 0.78);
+  --bg-card-atelier: rgba(14, 14, 16, 0.82);
   --text-cream: #F5EFEB;
   --text-muted: rgba(245, 239, 235, 0.68);
   --font-cinzel: 'Cinzel', Georgia, serif;
@@ -47,12 +48,12 @@ html, body {
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .story-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -115,6 +116,15 @@ html, body {
   );
 }
 
+.video-overlay-atelier {
+  background: radial-gradient(
+    circle at 50% 48%,
+    rgba(10, 10, 12, 0) 35%,
+    rgba(10, 10, 12, 0.4) 75%,
+    rgba(10, 10, 12, 0.82) 100%
+  );
+}
+
 .video-vignette {
   position: absolute;
   inset: 0;
@@ -128,6 +138,16 @@ html, body {
   pointer-events: none;
 }
 
+.video-vignette-atelier {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 12, 0.85) 0%,
+    rgba(10, 10, 12, 0.15) 20%,
+    rgba(10, 10, 12, 0.15) 60%,
+    rgba(10, 10, 12, 0.88) 100%
+  );
+}
+
 /* --------------------------------------------------------------------------
    Global Fixed Header & Chapter Navigation
    -------------------------------------------------------------------------- */
@@ -137,23 +157,23 @@ html, body {
   left: 0;
   width: 100%;
   z-index: 100;
-  padding: clamp(16px, 3vh, 28px) clamp(20px, 4vw, 48px);
+  padding: clamp(14px, 2.8vh, 26px) clamp(20px, 4vw, 48px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to bottom, rgba(13, 7, 4, 0.85) 0%, rgba(13, 7, 4, 0) 100%);
+  background: linear-gradient(to bottom, rgba(13, 7, 4, 0.88) 0%, rgba(13, 7, 4, 0) 100%);
   pointer-events: auto;
 }
 
 .nav-brand {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .brand-link {
   font-family: var(--font-cinzel);
-  font-size: clamp(20px, 2.4vw, 30px);
+  font-size: clamp(19px, 2.3vw, 28px);
   font-weight: 700;
   letter-spacing: clamp(0.24em, 0.4vw, 0.38em);
   text-decoration: none;
@@ -171,7 +191,7 @@ html, body {
 
 .nav-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(7.5px, 0.7vw, 9.5px);
+  font-size: clamp(7px, 0.68vw, 9px);
   font-weight: 500;
   letter-spacing: 0.28em;
   color: var(--text-muted);
@@ -179,14 +199,14 @@ html, body {
   margin-right: -0.28em;
 }
 
-/* Chapter Progress Switcher (01 / 02) */
+/* Chapter Progress Switcher (01 / 02 / 03) */
 .chapter-nav {
   display: flex;
   align-items: center;
-  gap: clamp(8px, 1.2vw, 16px);
-  background: rgba(22, 13, 8, 0.65);
-  border: 1px solid rgba(216, 165, 97, 0.22);
-  padding: 6px 14px;
+  gap: clamp(6px, 1vw, 12px);
+  background: rgba(22, 13, 8, 0.7);
+  border: 1px solid rgba(216, 165, 97, 0.25);
+  padding: 5px 12px;
   border-radius: 40px;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -195,7 +215,7 @@ html, body {
 .chapter-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   background: transparent;
   border: none;
   color: var(--text-muted);
@@ -215,15 +235,15 @@ html, body {
 
 .chapter-title {
   font-family: var(--font-sans);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 /* Progress track under/inside each chapter button */
 .chapter-progress-track {
-  width: 32px;
+  width: 28px;
   height: 2px;
   background: rgba(216, 165, 97, 0.2);
   border-radius: 2px;
@@ -256,8 +276,8 @@ html, body {
 }
 
 .chapter-separator {
-  color: rgba(216, 165, 97, 0.35);
-  font-size: 11px;
+  color: rgba(216, 165, 97, 0.3);
+  font-size: 10px;
 }
 
 /* --------------------------------------------------------------------------
@@ -268,13 +288,13 @@ html, body {
   z-index: 10;
   width: 100%;
   max-width: 1200px;
-  padding: 0 24px clamp(28px, 5vh, 48px);
+  padding: 0 24px clamp(24px, 4.5vh, 44px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   text-align: center;
-  gap: clamp(14px, 2.5vh, 24px);
+  gap: clamp(12px, 2.2vh, 22px);
 }
 
 /* Coming Soon Wrapper (Act I) */
@@ -282,7 +302,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(8px, 1.6vh, 14px);
+  gap: clamp(8px, 1.5vh, 14px);
   animation: fadeInUp 1.2s var(--ease-cinematic) forwards;
 }
 
@@ -310,6 +330,11 @@ html, body {
 .sanctum-dot {
   background: #E5A85A;
   box-shadow: 0 0 12px #E5A85A;
+}
+
+.atelier-dot {
+  background: #E0C097;
+  box-shadow: 0 0 12px #E0C097;
 }
 
 .status-label {
@@ -413,18 +438,23 @@ html, body {
 }
 
 .scroll-cue-top {
-  margin-bottom: clamp(10px, 2vh, 18px);
+  margin-bottom: clamp(6px, 1.5vh, 12px);
+}
+
+.scroll-cue-loop:hover .cue-arrow {
+  transform: rotate(180deg);
+  transition: transform 0.6s ease;
 }
 
 /* --------------------------------------------------------------------------
-   Sanctum Presentation Card (Act II)
+   Sanctum & Atelier Presentation Cards (Act II & Act III)
    -------------------------------------------------------------------------- */
 .sanctum-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: clamp(8px, 1.4vh, 12px);
-  padding: clamp(18px, 2.5vh, 26px) clamp(22px, 3.5vw, 36px);
+  padding: clamp(16px, 2.4vh, 24px) clamp(22px, 3.5vw, 36px);
   background: var(--bg-card);
   border: 1px solid rgba(216, 165, 97, 0.25);
   border-radius: 16px;
@@ -432,13 +462,19 @@ html, body {
   -webkit-backdrop-filter: blur(20px);
   max-width: 680px;
   width: 100%;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(216, 165, 97, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(216, 165, 97, 0.08);
   animation: fadeInUp 1.2s var(--ease-cinematic) forwards;
+}
+
+.atelier-card {
+  background: var(--bg-card-atelier);
+  border-color: rgba(224, 192, 151, 0.3);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.8), 0 0 24px rgba(216, 165, 97, 0.1);
 }
 
 .sanctum-title {
   font-family: var(--font-cinzel);
-  font-size: clamp(20px, 3vw, 34px);
+  font-size: clamp(19px, 2.8vw, 32px);
   font-weight: 600;
   letter-spacing: clamp(0.24em, 0.4vw, 0.36em);
   text-transform: uppercase;
@@ -454,14 +490,14 @@ html, body {
   font-size: clamp(9px, 0.9vw, 12px);
   font-weight: 300;
   line-height: 1.6;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--text-cream);
   opacity: 0.9;
-  max-width: 520px;
+  max-width: 540px;
 }
 
 .sanctum-actions {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .vip-interest-btn {
@@ -469,15 +505,15 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 11px 28px;
+  padding: 10px 26px;
   background: linear-gradient(135deg, #1E120A 0%, #351C0E 50%, #1E120A 100%);
   border: 1px solid rgba(216, 165, 97, 0.45);
   border-radius: 30px;
   color: var(--gold-bright);
   font-family: var(--font-sans);
-  font-size: clamp(8.5px, 0.8vw, 10.5px);
+  font-size: clamp(8.5px, 0.78vw, 10px);
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   cursor: pointer;
   overflow: hidden;
@@ -503,14 +539,6 @@ html, body {
   animation: shineSweep 4s infinite ease-in-out;
 }
 
-.sanctum-footer-note {
-  font-family: var(--font-sans);
-  font-size: 8px;
-  letter-spacing: 0.3em;
-  color: var(--text-muted);
-  opacity: 0.6;
-}
-
 /* --------------------------------------------------------------------------
    Universal Sound Control Toggle
    -------------------------------------------------------------------------- */
@@ -526,7 +554,7 @@ html, body {
   align-items: center;
   gap: 10px;
   padding: 8px 16px;
-  background: rgba(18, 11, 7, 0.65);
+  background: rgba(18, 11, 7, 0.7);
   border: 1px solid rgba(216, 165, 97, 0.3);
   border-radius: 30px;
   color: var(--text-cream);
@@ -538,7 +566,7 @@ html, body {
 }
 
 .sound-toggle:hover {
-  background: rgba(216, 165, 97, 0.18);
+  background: rgba(216, 165, 97, 0.2);
   border-color: rgba(216, 165, 97, 0.7);
   box-shadow: 0 0 18px rgba(216, 165, 97, 0.3);
   transform: translateY(-1px);
@@ -794,7 +822,7 @@ html, body {
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .global-nav {
-    padding: 14px 16px;
+    padding: 12px 14px;
   }
 
   .nav-subtitle {
@@ -802,20 +830,20 @@ html, body {
   }
 
   .chapter-title {
-    display: none; /* keep chapter number + progress line compact */
+    display: none;
   }
 
   .chapter-progress-track {
-    width: 22px;
+    width: 18px;
   }
 
   .section-content {
-    padding: 0 16px 24px;
-    gap: 12px;
+    padding: 0 16px 20px;
+    gap: 10px;
   }
 
   .sanctum-card {
-    padding: 16px 18px;
+    padding: 14px 16px;
     border-radius: 14px;
   }
 
@@ -829,8 +857,8 @@ html, body {
   }
 
   .sound-control-wrapper {
-    bottom: 16px;
-    right: 16px;
+    bottom: 14px;
+    right: 14px;
   }
 
   .sound-text {
